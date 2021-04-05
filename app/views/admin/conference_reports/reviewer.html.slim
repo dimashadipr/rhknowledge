@@ -1,0 +1,45 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Reviewer Report
+      .col-sm-6
+        .float-right
+          = link_to reviewer_report_admin_conferences_path(format: :xlsx), class: 'btn btn-success btn-flat', download: "Reviewer Report - #{Date.today}.xlsx"
+            | Export Excel
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @participants, entry_name: 'participant'
+        .card-tools
+          = paginate @participants, theme: :admin
+
+      .card-body.p-0.table-responsive
+        table.table
+          thead
+            tr
+              th Name
+              th Email
+              th Topic
+              th Abstract File
+              th Reviewer
+              th Score
+              th Review Date
+          tbody
+            - @participants.each_with_index do |participant, index|
+              - latest_abstract_file = participant.latest_abstract_file
+              - if latest_abstract_file.blank?
+                = render 'admin/conference_reports/row/reviewer', participant: participant, reviewer: nil, abstract_file: participant.abstract_file, index: index
+              - else
+                - reviewers = latest_abstract_file.participant_file_reviews
+                - reviewers.each do |reviewer|
+                  = render 'admin/conference_reports/row/reviewer', participant: participant, reviewer: reviewer, abstract_file: latest_abstract_file, index: index
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @participants, entry_name: 'participant'
+        .float-right
+          = paginate @participants, theme: :admin

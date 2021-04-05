@@ -1,0 +1,61 @@
+.row
+  .col-md-6.col-sm-12
+    legend Role Information
+    .form-group
+      = f.label :type
+      = f.select :type, ['RoleAdmin'], { include_blank: 'Select Role Type ...' }, required: true, class: 'form-control', prompt: 'Select'
+      = error_on role, :type
+
+    .form-group
+      = f.label :code
+      = f.text_field :code, class: 'form-control', required: true, placeholder: 'Code'
+      = error_on role, :code
+
+    .form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control', required: true, placeholder: 'Name'
+      = error_on role, :name
+
+.row
+  .col-sm-12
+    fieldset
+      legend Permissions
+
+    - permissions.each_slice(4).each do |grouped|
+      .row
+        - grouped.each do |group|
+          - module_name = group.first
+          - permissions = group.last
+
+          .col-sm-3
+            .card.permission-box
+              .card-header.with-border
+                .checkbox
+                  label.ml-2.mt-2
+                    - all_checked = role_abilities.select {|ab| permissions.map(&:id).include?(ab.permission_id) }.all? {|x| !x.id.blank? }
+                    = check_box_tag nil, nil, all_checked, class: 'checkbox check-permission'
+                    strong.pl-2 = module_name.titleize
+
+              .card-body
+                - permissions.each do |permission|
+                  - r_ability = role_abilities.detect {|ab| ab.permission_id == permission.id }
+                  = f.fields_for :role_abilities, r_ability do |ra|
+                    .form-froup
+                      .checkbox
+                        = ra.check_box :_destroy, { class: 'nested-destroy d-none' }, true, nil
+                        = ra.label :permission_id
+                          = ra.check_box :permission_id, { checked: !r_ability.id.nil?, class: 'nested-checkbox', data: { action: permission.action } }, permission.id, nil
+                          span.pl-2 = permission.name
+
+= content_for :js
+  javascript:
+    $('.check-permission').change(function(){
+      var checked = $(this).is(':checked');
+      $(this).parents('.permission-box').find('.nested-checkbox').prop('checked', checked);;
+      $(this).parents('.permission-box').find('.nested-destroy').prop('checked', !checked);;
+    });
+
+    $('.nested-checkbox').change(function(){
+      var checked = $(this).is(':checked');
+      $(this).parents('.checkbox').find('.nested-destroy').prop('checked', !checked);;
+    });

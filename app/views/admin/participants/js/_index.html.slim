@@ -1,0 +1,33 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $(document).on('click', '.open-detail', function(){
+      var row = $(this).parent().data('row');
+      var $detailRow = $('#detail-' + row);
+      if ($detailRow.hasClass('d-none')) {
+        $detailRow.removeClass('d-none');
+      } else {
+        $detailRow.addClass('d-none');
+      }
+    });
+
+    $(document).on('change', '.final-review-status', function(){
+      var $form  = $('#form-final-review');
+      var $radio = $form.find('input[type=radio][name=status]:checked');
+      var $row   = $radio.parents('.row');
+      var status = $radio.val();
+      var $paragraph = $form.find('p[class*=status]')
+
+      $paragraph.html(status);
+      if (status == 'oral_accepted' || status == 'poster_accepted') {
+        $paragraph.addClass('text-success');
+        $paragraph.removeClass('text-danger');
+      } else {
+        $paragraph.removeClass('text-success');
+        $paragraph.addClass('text-danger');
+      }
+
+    });

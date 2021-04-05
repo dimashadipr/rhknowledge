@@ -1,0 +1,19 @@
+id:
+  banner:
+    title: 'KONFERENSI NASIONAL MENJAMIN AKSES DAN KUALITAS LAYANAN KESEHATAN REPRODUKSI DENGAN ADAPTASI KEBIASAAN BARU COVID-19'
+    button: 'Registrasi'
+  background:
+    title: 'Latar Belakang'
+    text: 'COVID-19 masuk ke Indonesia pada awal tahun 2020 berdampak buruk secara cepat pada sistem kesehatan dan kapasitas pembangunan sosial ekonomi. Respons darurat pemerintah dari "hilir” dapat mengurangi sumber daya yang dibutuhkan untuk menjaga akses dan kualitas layanan kesehatan reproduksi. Statistik kasus dan kematian COVID-19 terus meningkat perubahan perilaku berisiko masyarakat yang tidak signifikan  pandemi COVID-19 akan berlanjut. Promosi perubahan perilaku masyarakat, memperkuat sistem layanan kesehatan reproduksi, dan cara untuk meningkatkan akses informasi dan layanan kesehatan reproduksi sangat diperlukan.'
+  registration:
+    front_title: 'Gelar Depan'
+    back_title: 'Gelar Belakang'
+    title: 'Sebutan *'
+    name: 'Nama Lengkap *'
+    email: 'Email *'
+    phone: 'No Handphone *'
+    whatsapp: 'No Whatsapp *'
+    institution: 'Institusi *'
+    institution_phone: 'No Telefon Institusi'
+    participant: 'Pilih Partisipasi'
+    session: 'Pilih Sub Tema'

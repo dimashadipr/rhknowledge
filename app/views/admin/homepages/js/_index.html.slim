@@ -1,0 +1,194 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+
+    // ======= BANNER ============
+
+    reIndexBanner();
+
+    $(document).on('click', '.add-banner', function(){
+      var $newBanner = $('.new-element').find('.new-banner');
+      var cloned     = $newBanner.clone();
+
+      cloned.removeClass('new-banner');
+      cloned.addClass('card-banner');
+
+      cloned.find('.banner-option').prop('required', true);
+      cloned.find('.banner-image').prop('required', true);
+
+      $('#list-banner').append(cloned);
+      reIndexBanner();
+    });
+
+    $(document).on('click', '.remove-banner', function(){
+      var $cardBanner = $(this).parents('.card-banner');
+      $cardBanner.find('.banner-deleted').val(true);
+
+      $cardBanner.addClass('d-none');
+      $cardBanner.find('.banner-option').prop('required', false);
+      $cardBanner.find('.banner-image').prop('required', false);
+
+      reIndexBanner();
+    });
+
+    $('#btn-save').on('click', function(){
+      $('#form-home-manage').submit();
+    })
+
+    $( "#list-banner" ).sortable({
+      stop: function(event, ui){
+        reIndexBanner();
+      }
+    });
+
+    $( "#list-banner" ).disableSelection();
+
+    function reIndexBanner(){
+      var $banners = $('.card-banner');
+      var active   = 0;
+
+      $banners.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.banner-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.banner-index').html('Banner '+ (active));
+
+        $card.find('.banner-id').attr('name', 'homepage[page_banners]['+index+'][id]');
+
+        $card.find('.banner-position').attr('name', 'homepage[page_banners]['+index+'][position]');
+        $card.find('.banner-position').val(index + 1);
+
+        $card.find('.banner-deleted').attr('name', 'homepage[page_banners]['+index+'][deleted]');
+        $card.find('.banner-url').attr('name', 'homepage[page_banners]['+index+'][url]');
+
+        $card.find('.banner-image').attr('name', 'homepage[page_banners]['+index+'][image]');
+        $card.find('.banner-image').attr('id', 'homepage-page-banners-'+index);
+        // $card.find('.banner-image').prop('required', true);
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    function showHideDeleteBtn(){
+      var $banners = $('.card-banner');
+      var active   = 0;
+
+      $banners.each(function(index){
+        var deleted = $(this).find('.banner-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-banner').removeClass('d-none');
+      } else {
+        $(document).find('.remove-banner').addClass('d-none');
+      }
+
+      var $links = $('.card-links');
+      var active   = 0;
+
+      $links.each(function(index){
+        var deleted = $(this).find('.link-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-link').removeClass('d-none');
+      } else {
+        $(document).find('.remove-link').addClass('d-none');
+      }
+    }
+
+    function showHideAddBtn(){
+      var $networks = $('.card-network');
+      var active   = 0;
+
+      $networks.each(function(index){
+        var deleted = $(this).find('.network-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active < 3) {
+        $(document).find('.add-network').removeClass('d-none');
+      } else {
+        $(document).find('.add-network').addClass('d-none');
+      }
+    }
+
+
+    // ======= LINKS =======
+    $(document).on('click', '.add-link', function(){
+      var $newLink = $('.new-element').find('.new-links');
+      var cloned   = $newLink.clone();
+
+      cloned.removeClass('new-links');
+      cloned.addClass('card-links');
+
+      cloned.find('.link-option').prop('required', true);
+      // cloned.find('.link-image').prop('required', true);
+
+      $('#list-link').append(cloned);
+      reIndexLink();
+    });
+
+    $(document).on('click', '.remove-link', function(){
+      var $cardLink = $(this).parents('.card-links');
+      $cardLink.find('.link-deleted').val(true);
+
+      $cardLink.addClass('d-none');
+      $cardLink.find('.link-option').prop('required', false);
+      $cardLink.find('.link-image').prop('required', false);
+
+      reIndexLink();
+    });
+
+    $( "#list-link" ).sortable({
+      stop: function(event, ui){
+        reIndexLink();
+      }
+    });
+
+    $( "#list-link" ).disableSelection();
+
+    function reIndexLink(){
+      var $links = $('.card-links');
+      var active   = 0;
+
+      $links.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.link-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.link-index').html('Link '+ (active));
+
+        $card.find('.link-id').attr('name', 'homepage[page_links]['+index+'][id]');
+
+        $card.find('.link-position').attr('name', 'homepage[page_links]['+index+'][position]');
+        $card.find('.link-position').val(index + 1);
+
+        $card.find('.link-deleted').attr('name', 'homepage[page_links]['+index+'][deleted]');
+
+        $card.find('.link-option').attr('name', 'homepage[page_links]['+index+'][page_id]');
+        $card.find('.link-option').attr('id', 'homepage-page-banners-'+index);
+
+        $card.find('.link-image').attr('name', 'homepage[page_links]['+index+'][image]');
+        $card.find('.link-image').attr('id', 'homepage-page-links-'+index);
+        // $card.find('.link-image').prop('required', true);
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }

@@ -1,0 +1,47 @@
+.row
+  .col-lg-4.col-6
+    .small-box.bg-info
+      .inner
+        h3 = @resources.size
+        p Articles
+      .icon
+        i.ion.ion-bag
+      a.small-box-footer href="#{admin_resources_path}"
+        | More Info
+        i.fas.fa-arrow-circle-right
+  .col-lg-4.col-6
+    .small-box.bg-success
+      .inner
+        h3 = @events.size
+        p Agenda
+      .icon
+        i.ion.ion-calendar
+      a.small-box-footer href="#{admin_events_path}"
+        | More Info
+        i.fas.fa-arrow-circle-right
+  .col-lg-4.col-6
+    .small-box.bg-warning
+      .inner
+        h3 = @visits
+        p Visitor
+      .icon
+        i.ion.ion-person
+      a.small-box-footer href="#{admin_visitors_path}"
+        | More Info
+        i.fas.fa-arrow-circle-right
+
+.row.justify-content-md-center
+  .col.col-lg-4.col-6
+    .info-box
+      span.info-box-icon.bg-info.elevation-1
+        i.fas.fa-users
+      .info-box-content
+        span.info-box-text Particpant
+        span.info-box-number = @participants.size
+  .col.col-lg-4.col-6
+    .info-box
+      span.info-box-icon.bg-success.elevation-1
+        i.fas.fa-file-word
+      .info-box-content
+        span.info-box-text Abstract
+        span.info-box-number = @abstracts.size

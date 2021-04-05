@@ -1,0 +1,27 @@
+.col-md-4.new-category
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.category-index Category 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-category href="javascript:void(0)"
+          i.fa.fa-trash
+          
+    .card-body
+      = f.hidden_field :conference_participant_id, name: "",
+        class: 'category-id', value: nil
+      = f.hidden_field :conference_participant_deleted, name: "",
+        class: 'category-deleted', value: false
+
+      .form-group
+        label Name *
+        = f.text_field :conference_participant_category, name: "", class: 'category-name form-control', value: nil
+
+      .form-group
+        label Start Time
+        = f.datetime_field :conference_participant_start_time, name: "", class: 'category-start form-control', value: nil
+
+      .form-group
+        label End Time
+        = f.datetime_field :conference_participant_end_time, name: "", class: 'category-end form-control', value: nil

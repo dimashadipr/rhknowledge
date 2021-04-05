@@ -1,0 +1,20 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Role
+      .col-sm-6
+        ol.breadcrumb.float-sm-right
+          li.breadcrumb-item
+            = link_to admin_roles_path
+              | Role
+
+.content
+  .container-fluid
+    .card
+      = form_for @role, as: :role, url: admin_roles_path, method: 'post' , html: { role: 'form' } do |f|
+        .card-body
+            = render 'form', f: f, role: @role, role_abilities: @role.role_abilities, permissions: @permissions
+
+        .card-footer
+          = f.submit "Save", class: 'btn btn-flat btn-primary'

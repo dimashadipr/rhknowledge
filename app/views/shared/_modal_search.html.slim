@@ -1,0 +1,24 @@
+#searchModal.modal.fade aria-hidden="true" aria-labelledby="exampleModalLabel" role="dialog" tabindex="-1"
+  .modal-dialog.modal-dialog-centered.modal-lg
+    .modal-content
+      .modal-body
+        = form_with url: articles_path, local: true, id: 'form-search', method: 'get' do |f|
+          .row
+            .col-md-12
+              .form-group
+                label Search for
+                = f.text_field :query, class: 'form-control'
+          .row
+            .col-md-6
+              .input-group
+                = f.text_field :date, class: 'form-control', placeholder: 'Date', style: 'color: #495057'
+                .input-group-prepend
+                  .input-group-text
+                    i.fas.fa-calendar-alt
+            .col-md-6
+              .form-group
+                = f.select :navigation_ids, options_for_select([], nil), { include_blank: 'Choose Topic' },
+                  class: 'form-control select2', required: false, style: 'color: #495057; width: 100%; height: 100%;'
+
+      .modal-footer.p-1
+        button.btn.btn-primary.btn-flat.btn-sm type="submit" form="form-search"  Search

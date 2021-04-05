@@ -1,0 +1,161 @@
+tr.row-detail.d-none style="background-color: #e8e8e8" id="detail-#{participant.id}"
+  td colspan='8'
+    .row
+      .col-md-4
+        .card
+          .card-header.p-2
+            h3.card-title
+              i.fas.fa-user.text-width.mr-2
+              | Participant Detail
+          .card-body.p-2
+            dl.row
+              dt.col-sm-4 Gelar Depan
+              dd.m-0.col-sm-8 = participant.front_title
+              dt.col-sm-4 Gelar Belakang
+              dd.m-0.col-sm-8 = participant.back_title
+              dt.col-sm-4 Panggilan
+              dd.m-0.col-sm-8 = participant.title
+              dt.col-sm-4 Name
+              dd.m-0.col-sm-8 = participant.name
+      .col-md-4
+        .card
+          .card-header.p-2
+            h3.card-title
+              i.fas.fa-phone.text-width.mr-2
+              | Contact Detail
+          .card-body.p-2
+            dl.row
+              dt.col-sm-4 Email
+              dd.m-0.col-sm-8 = participant.email
+              dt.col-sm-4 No. Handphone
+              dd.m-0.col-sm-8 = participant.phone
+              dt.col-sm-4 Whatsapp
+              dd.m-0.col-sm-8 = participant.whatsapp
+      .col-md-4
+        .card
+          .card-header.p-2
+            h3.card-title
+              i.fas.fa-graduation-cap.text-width.mr-2
+              | Contact Detail
+          .card-body.p-2
+            dl.row
+              dt.col-sm-4 Institution
+              dd.m-0.col-sm-8 = participant.institution
+              dt.col-sm-4 Phone
+              dd.m-0.col-sm-8 = participant.institution_phone
+      .col-md-4
+        .card
+          .card-header.p-2
+            h3.card-title
+              i.fas.fa-file.text-width.mr-2
+              | Abstract File
+          .card-body.p-2
+            - if participant.abstract_file.present?
+              dl
+                dt Filename
+                dd
+                  = link_to participant.abstract_file.url, download: "Abstrak #{participant.full_name}.#{participant.abstract_extenstion}", target: '_blank', class: 'mr-1'
+                    = participant.abstract_file.file.filename
+                dt Submitted At
+                dd = date_format(participant.abstract_submitted_date, 'long')
+                dt Status
+                dd
+                  span.badge class="#{abstract_status(participant.abstract_status)}" = participant.abstract_status.humanize
+
+            - else
+              p
+                | -
+
+            - if participant.latest_abstract_file.present? && participant.latest_abstract_file.participant_file_reviews.present?
+              table.table.table-bordered
+                tr
+                  td Reviewed By
+                  td Status
+                  td Score
+
+                - file_reviews = participant.latest_abstract_file.participant_file_reviews
+                - file_reviews.each do |review|
+                  tr
+                    td = review.user&.name
+                    td
+                      span.badge class="#{abstract_status(review.status)}" = review.status.humanize
+                    td = review.score
+      - if participant.payment_file.present?
+        - payment_file = participant.payment_file
+        .col-md-4
+          .card
+            .card-header.p-2
+              h3.card-title
+                i.fas.fa-money-bill-alt.text-width.mr-2
+                | Payment File
+            .card-body.p-2
+              dl.row
+                dt.col-sm-4 Bank Sender
+                dd.m-0.col-sm-8 = payment_file.sender_bank
+                dt.col-sm-4 Proof
+                dd.m-0.col-sm-8
+                  = link_to payment_file.file.url, download: "Bukti Bayar #{participant.full_name}.#{payment_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+                    = payment_file.file.file.filename
+                dt.col-sm-4 Status
+                dd.m-0.col-sm-8
+                  span.badge class="#{abstract_status(payment_file.status)}" = payment_file.status.humanize
+      - if participant.paper_file.present?
+       - paper_file = participant.paper_file
+       .col-md-4
+        .card
+          .card-header.p-2
+            h3.card-title
+              i.fas.fa-file.text-width.mr-2
+              | Paper File
+          .card-body.p-2
+            dl.row
+              dt.col-sm-4 Judul
+              dd.m-0.col-sm-8 = paper_file.paper_title
+              dt.col-sm-4 Presenter
+              dd.m-0.col-sm-8 = paper_file.presenter
+              dt.col-sm-4 Dokumen
+              dd.m-0.col-sm-8
+                = link_to paper_file.file.url, download: "Paper File #{participant.full_name}.#{paper_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+                  = paper_file.file.file.filename
+
+            - if paper_file.need_review?
+              table.table.table-bordered
+                tr
+                  td Reviewed By
+                  td Status
+                  td Score
+
+                - file_reviews = participant.paper_file.participant_file_reviews
+                - file_reviews.each do |review|
+                  tr
+                    td = review.user&.name
+                    td
+                      span.badge class="#{abstract_status(review.status)}" = review.status.humanize
+                    td = review.score
+
+      - if participant.presentation_file.present?
+        - presentation_file = participant.presentation_file
+        .col-md-4
+          .card
+            .card-header.p-2
+              h3.card-title
+                i.fas.fa-file.text-width.mr-2
+                | Paper File
+            .card-body.p-2
+              dl.row
+                dt.col-sm-4 Dokumen
+                dd.m-0.col-sm-8
+                  = link_to presentation_file.file.url, download: "Paper File #{participant.full_name}.#{presentation_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+                    = presentation_file.file.file.filename
+      - if current_user.superadmin?
+        .col-md-4
+          .card
+            .card-header.p-2
+              h3.card-title
+                i.fas.fa-money-bill-alt.text-width.mr-2
+                | Participant Detail
+            .card-body.p-2
+              dl.row
+                - participant.attributes.each_pair do |name, value|
+                  dt.col-sm-4 = name
+                  dd.m-0.col-sm-8 = value

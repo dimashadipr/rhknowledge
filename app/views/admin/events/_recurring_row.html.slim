@@ -1,0 +1,16 @@
+tr
+  td = recurring_event.name
+  td
+    span.badge.badge-info = recurring_event.category.humanize
+  td
+    p = recurring_event.time
+  td
+    .btn-group
+      - if can?(:update, 'event')
+        = link_to edit_admin_recurring_event_path(recurring_event.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'event')
+        = link_to admin_recurring_event_path(recurring_event),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button"
+            i.fas.fa-trash

@@ -1,0 +1,6 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });

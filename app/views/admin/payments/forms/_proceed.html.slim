@@ -1,0 +1,14 @@
+= form_with url: admin_payment_path(payment_file.id), method: 'put', local: true, id: 'form-proceed-payment' do |f|
+  = f.hidden_field :status, value: status
+  .form-group
+    label Participant
+    = f.text_field :participant_name, value: payment_file.participant.full_name, class: 'form-control', readonly: true
+
+  .form-group
+    label File
+    br
+    - if payment_file.extension != 'pdf'
+      img.img-fluid src="#{payment_file.file.url}"
+    - else
+      = link_to payment_file.file.url, download: "Bukti Bayar #{payment_file.participant.full_name}.#{payment_file.extension}", target: '_blank', class: 'mr-1'
+        = payment_file.file.file.filename

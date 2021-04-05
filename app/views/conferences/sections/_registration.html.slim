@@ -1,0 +1,78 @@
+.instructors#registration style="padding-top: 30px; padding-bottom:30px"
+  .container
+    .row
+      .col-lg-12
+        .register_form_container
+          .row
+            .col-md-6
+              .register_form_title.text_primary Menuju Konferensi Nasional Kesehatan Reproduksi
+            .col-md-6.pt-1
+              ul.timer_list
+                li
+                  #day.timer_num 00
+                  .timer_ss days
+                li
+                  #hour.timer_num 00
+                  .timer_ss hours
+                li
+                  #minute.timer_num 00
+                  .timer_ss minutes
+                li
+                  #second.timer_num 00
+                  .timer_ss seconds
+          = form_with url: conferences_path, scope: 'conferences', method: 'post', local: true do |f|
+            = f.hidden_field :conference_id, value: @conference.id
+            .row.register_row
+              .col-lg-6 style="border-right:1px solid;"
+                .row
+                  .col-lg-6.register_col
+                    = f.text_field :front_title, class: 'form_input', required: false, placeholder: "#{t('registration.front_title')}"
+                  .col-lg-6.register_col
+                    = f.text_field :back_title, class: 'form_input', required: false, placeholder: "#{t('registration.back_title')}"
+                  .col-lg-3.register_col
+                    = f.select :title, options_for_select(@title_options), { include_blank: "#{t('registration.title')}" },class: 'form_input', required: true
+                  .col-lg-9.register_col
+                    = f.text_field :name, class: 'form_input', required: true, placeholder: "#{t('registration.name')}"
+                  .col-lg-12.register_col
+                    = f.email_field :email, class: 'form_input', required: true, placeholder: "#{t('registration.email')}"
+                  .col-lg-6.register_col
+                    = f.text_field :phone, class: 'form_input', required: true, placeholder: "#{t('registration.phone')}"
+                  .col-lg-6.register_col
+                    = f.text_field :whatsapp, class: 'form_input', required: true, placeholder: "#{t('registration.whatsapp')}"
+                    = f.check_box :same, class: ''
+                    label for="conferences_same" Sama dengan Handphone
+                  .col-lg-6.register_col
+                    = f.text_field :institution, class: 'form_input', required: true, placeholder: "#{t('registration.institution')}"
+                  .col-lg-6.register_col
+                    = f.text_field :institution_phone, class: 'form_input', required: false, placeholder: "#{t('registration.institution_phone')}"
+              .col-lg-6
+                .row
+                  .col-lg-12.register_col
+                    = f.select :conference_participant_id, options_for_select(@participant_options, nil), { include_blank: "#{t('registration.participant')}" },class: 'form_input', required: true
+                  .col-lg-12.register_col.d-none
+                    = f.select :conference_topic_id, options_for_select(@topic_options, nil), { include_blank: "#{t('registration.session')}" },class: 'form_input', required: false
+                  .col-lg-12.register_col.d-none
+                    table
+                      tr
+                        td.p-1
+                          = f.check_box :scholarship, class: ''
+                        td.p-1
+                          label for="conferences_scholarship" Peserta mengajukan beasiswa penanggungan biaya presentasi abstrak sebesar Rp 250.000,00,-
+                  .col-lg-12.register_col.d-none
+                    label File Abstrak
+                    br
+                    = f.file_field :abstract, class: 'form-input', required: false, placeholder: 'Upload Abstrak', accept: '.doc, .docx, .pdf'
+                    label Format File: .docx, .pdf, .doc, Max: 500KB
+                  .col-lg-12
+                    = recaptcha_tags(callback: 'validCaptchaRegistration', expired_callback: 'expiredCaptchaRegistration')
+                  .col-lg-12
+                    button.form_button.trans_200#btn-registration disabled="disabled" style="background: #aaaaab" type="submit" Daftar
+
+              .col-lg-6
+                - if !flash[:error].blank?
+                  .alert.alert-warning.alert-dismissible.fade.show role="alert"
+                    strong Gagal Registrasi!
+                    = flash[:error]
+                    button.close aria-label="Close" data-dismiss="alert" type="button"
+                      span aria-hidden="true"  ×
+      .col-lg-12

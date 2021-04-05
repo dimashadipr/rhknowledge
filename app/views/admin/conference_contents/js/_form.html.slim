@@ -1,0 +1,158 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+
+    // ======= LETTER ============
+
+    reIndexLetter();
+
+    $(document).on('click', '.add-letter', function(){
+      var $newLetter = $('.new-element').find('.new-letter');
+      var cloned     = $newLetter.clone();
+
+      cloned.removeClass('new-letter');
+      cloned.addClass('card-letter');
+
+      $('#list-letter').append(cloned);
+      reIndexLetter();
+    });
+
+    $(document).on('click', '.remove-letter', function(){
+      var $cardLetter = $(this).parents('.card-letter');
+      $cardLetter.find('.letter-deleted').val(true);
+
+      $cardLetter.addClass('d-none');
+
+      reIndexLetter();
+    });
+
+    $( "#list-letter" ).sortable({
+      stop: function(event, ui){
+        reIndexLetter();
+      }
+    });
+
+    $( "#list-letter" ).disableSelection();
+
+    function reIndexLetter(){
+      var $letters = $('.card-letter');
+      var active   = 0;
+
+      $letters.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.letter-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.letter-index').html('Message '+ (active));
+
+        $card.find('.letter-id').attr('name', 'conference[conference_letters]['+index+'][id]');
+        $card.find('.letter-position').attr('name', 'conference[conference_letters]['+index+'][position]');
+
+        $card.find('.letter-deleted').attr('name', 'conference[conference_letters]['+index+'][deleted]');
+        $card.find('.letter-name').attr('name', 'conference[conference_letters]['+index+'][name]');
+        $card.find('.letter-title').attr('name', 'conference[conference_letters]['+index+'][title]');
+        $card.find('.letter-message').attr('name', 'conference[conference_letters]['+index+'][message]');
+        $card.find('.letter-image').attr('name', 'conference[conference_letters]['+index+'][image]');
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    // ======= SPEAKER ============
+
+    reIndexSpeaker();
+
+    $(document).on('click', '.add-speaker', function(){
+      var $newSpeaker = $('.new-element').find('.new-speaker');
+      var cloned     = $newSpeaker.clone();
+
+      cloned.removeClass('new-speaker');
+      cloned.addClass('card-speaker');
+
+      $('#list-speaker').append(cloned);
+      reIndexSpeaker();
+    });
+
+    $(document).on('click', '.remove-speaker', function(){
+      var $cardSpeaker = $(this).parents('.card-speaker');
+      $cardSpeaker.find('.speaker-deleted').val(true);
+
+      $cardSpeaker.addClass('d-none');
+
+      reIndexSpeaker();
+    });
+
+    $( "#list-speaker" ).sortable({
+      stop: function(event, ui){
+        reIndexSpeaker();
+      }
+    });
+
+    $( "#list-speaker" ).disableSelection();
+
+    function reIndexSpeaker(){
+      var $letters = $('.card-speaker');
+      var active   = 0;
+
+      $letters.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.speaker-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.speaker-index').html('Speaker '+ (active));
+
+        $card.find('.speaker-id').attr('name', 'conference[conference_speakers]['+index+'][id]');
+        $card.find('.speaker-position').attr('name', 'conference[conference_speakers]['+index+'][position]');
+
+        $card.find('.speaker-deleted').attr('name', 'conference[conference_speakers]['+index+'][deleted]');
+        $card.find('.speaker-name').attr('name', 'conference[conference_speakers]['+index+'][name]');
+        $card.find('.speaker-title').attr('name', 'conference[conference_speakers]['+index+'][title]');
+        $card.find('.speaker-image').attr('name', 'conference[conference_speakers]['+index+'][image]');
+        $card.find('.speaker-group').attr('name', 'conference[conference_speakers]['+index+'][group]');
+        $card.find('.speaker-conference-position').attr('name', 'conference[conference_speakers]['+index+'][conference_position]');
+
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    function showHideDeleteBtn(){
+      var $letters = $('.card-letter');
+      var active   = 0;
+
+      $letters.each(function(index){
+        var deleted = $(this).find('.letter-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-letter').removeClass('d-none');
+      } else {
+        $(document).find('.remove-letter').addClass('d-none');
+      }
+
+      var $speakers = $('.card-speaker');
+      var active   = 0;
+
+      $speakers.each(function(index){
+        var deleted = $(this).find('.speaker-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-speaker').removeClass('d-none');
+      } else {
+        $(document).find('.remove-speaker').addClass('d-none');
+      }
+    }

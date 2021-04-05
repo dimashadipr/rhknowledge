@@ -1,0 +1,41 @@
+id:
+  events:
+    title: 'Tanggal Penting'
+    description: 'Berbagai perayaan nasional dan internasional dalam setahun'
+  network:
+    title: 'Jejaring dan Rekan Kerja'
+  web:
+    nav:
+      abouts: 'Tentang Kami'
+      events: 'Event & Key Date Updates'
+      contacts: 'Kontak'
+  contact:
+    title: 'Hubungi Kami'
+    detail: 'Detail Kontak'
+    form:
+      name: 'Nama'
+      email: 'Email'
+      message: 'Pesan'
+      button: 'Kirim Pesan'
+  views:
+    pagination:
+      first: 'Pertama'
+      last: 'Terakhir'
+      next: 'Selanjutnya'
+      previous: 'Sebelumnya'
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries: "Menampilkan %{count} %{entry_name}"
+      more_pages:
+        display_entries: "Menampilkan %{first} - %{last} %{entry_name} dari %{total}"
+  errors:
+    messages:
+      mini_magick_processing_error: "Failed MiniMagick %{e}"
+  devise:
+    failure:
+      user:
+        not_found_in_database: 'Email atau Password tidak valid'
+        invalid: 'Email atau Password tidak valid'
+        unauthenticated: 'User harus login'
+        signed_in: 'Berhasil Login'

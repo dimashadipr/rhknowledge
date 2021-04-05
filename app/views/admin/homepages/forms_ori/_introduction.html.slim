@@ -1,0 +1,16 @@
+.card.card-primary
+  .card-header
+    h3.card-title Introduction Section
+    .card-tools
+      button.btn.btn-tool type="button" data-card-widget="collapse"
+        i.fas.fa-minus
+  .card-body
+    .row
+      .col-md-6
+        .form-group
+          label Title
+          = f.text_field :title, class: 'form-control', name: 'introduction[title]'
+
+        .form-group
+          label Description
+          = f.text_field :title, class: 'form-control', name: 'introduction[description]'

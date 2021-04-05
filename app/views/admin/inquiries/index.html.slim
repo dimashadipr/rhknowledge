@@ -1,0 +1,34 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Inquiries
+      .col-sm-6
+        .float-right
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @inquiries, entry_name: 'inquiry'
+        .card-tools
+          = paginate @inquiries, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th Name
+              th Email
+              th Message
+              th style="width:10%" Submitted Date
+          tbody
+            - @inquiries.each do |inquiry|
+              = render 'row', inquiry: inquiry
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @inquiries, entry_name: 'inquiry'
+        .float-right
+          = paginate @inquiries, theme: :admin

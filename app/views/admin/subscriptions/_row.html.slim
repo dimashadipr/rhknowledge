@@ -1,0 +1,14 @@
+tr
+  td
+    | #{subscription.first_name} #{subscription.last_name}
+  td = subscription.email
+  td = subscription.institution
+  td
+    span.badge class="bg-#{subscription.active ? 'success' : 'danger'}"
+      = subscription.active ? 'Active' : 'Inactive'
+  td
+    .btn-group
+      - if can?(:update, 'subscription')
+        = link_to change_status_admin_subscription_path(subscription.id), data: { toggle: 'tooltip', placement: 'top', 'title': 'Change Status' }
+          button.btn.btn-info type="button"
+            i.fas.fa-sync-alt

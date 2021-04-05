@@ -1,0 +1,15 @@
+.form-group
+  label Conference
+  = f.select :conference_id, options_for_select(@conference_options, nil), {include_blank: 'All Conference'}, class: 'form-control select2 participant-filter', required: false, style: 'width: 100%', multiple: false
+
+.form-group
+  label Participant Category
+  = f.select :conference_participant_id, options_for_select([], nil), {include_blank: false}, class: 'form-control select2 participant-filter', required: false, style: 'width: 100%', multiple: true
+
+.form-group
+  label Topic
+  = f.select :conference_topic_id, options_for_select([], nil), {include_blank: false}, class: 'form-control select2 participant-filter', required: false, style: 'width: 100%', multiple: true
+
+.form-group
+  label Participant
+  = f.select :participant_id, options_for_select([], nil), {include_blank: false}, class: 'form-control select2', required: false, style: 'width: 100%', multiple: true

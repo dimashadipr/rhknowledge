@@ -1,0 +1,25 @@
+.card.card-outline.card-primary
+  .card-header
+    h3.card-title Welcome Section
+    .card-tools
+      button.btn.btn-tool type="button" data-card-widget="collapse"
+        i.fas.fa-minus
+  .card-body
+    .row
+      .col-md-5
+        .card
+          .card-body
+            .form-group
+              label Title
+              = f.text_field :title, class: 'form-control', name: 'homepage[title]'
+            .form-group
+              label Description
+              = text_area_tag 'homepage[description]', @homepage.description, class: 'form-control'
+      .col-md-6
+        .card
+          .card-body
+            = render 'admin/homepages/forms/banners', f: f
+
+
+          button.btn.btn-flat.btn-success.add-banner type="button"
+            i.fa.fa-plus-square

@@ -1,0 +1,226 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+      console.log('asdasd');
+    });
+
+    // ======= CATEGORY ============
+
+    reIndexCategory();
+
+    $(document).on('click', '.add-category', function(){
+      var $newCategory = $('.new-element').find('.new-category');
+      var cloned     = $newCategory.clone();
+
+      cloned.removeClass('new-category');
+      cloned.addClass('card-category');
+
+      $('#list-category').append(cloned);
+      reIndexCategory();
+    });
+
+    $(document).on('click', '.remove-category', function(){
+      var $cardCategory = $(this).parents('.card-category');
+      $cardCategory.find('.category-deleted').val(true);
+
+      $cardCategory.addClass('d-none');
+
+      reIndexCategory();
+    });
+
+    $( "#list-category" ).sortable({
+      stop: function(event, ui){
+        reIndexCategory();
+      }
+    });
+
+    $( "#list-category" ).disableSelection();
+
+    function reIndexCategory(){
+      var $categories = $('.card-category');
+      var active   = 0;
+
+      $categories.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.category-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.category-index').html('Category '+ (active));
+
+        $card.find('.category-id').attr('name', 'conference[conference_participants]['+index+'][id]');
+
+        $card.find('.category-deleted').attr('name', 'conference[conference_participants]['+index+'][deleted]');
+        $card.find('.category-name').attr('name', 'conference[conference_participants]['+index+'][category]');
+
+        $card.find('.category-start').attr('name', 'conference[conference_participants]['+index+'][start_time]');
+        $card.find('.category-end').attr('name', 'conference[conference_participants]['+index+'][end_time]');
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    // ======= TOPIC ============
+
+    reIndexTopic();
+
+    $(document).on('click', '.add-topic', function(){
+      var $newTopic = $('.new-element').find('.new-topic');
+      var cloned     = $newTopic.clone();
+
+      cloned.removeClass('new-topic');
+      cloned.addClass('card-topic');
+
+      $('#list-topic').append(cloned);
+      reIndexTopic();
+    });
+
+    $(document).on('click', '.remove-topic', function(){
+      var $cardTopic = $(this).parents('.card-topic');
+      $cardTopic.find('.topic-deleted').val(true);
+
+      $cardTopic.addClass('d-none');
+      $cardTopic.find('.topic-name').prop('required', false);
+
+      reIndexTopic();
+    });
+
+    $( "#list-topic" ).sortable({
+      stop: function(event, ui){
+        reIndexTopic();
+      }
+    });
+
+    $( "#list-topic" ).disableSelection();
+
+    function reIndexTopic(){
+      var $topics = $('.card-topic');
+      var active   = 0;
+
+      $topics.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.topic-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.topic-index').html('Topic '+ (active));
+
+        $card.find('.topic-id').attr('name', 'conference[conference_topics]['+index+'][id]');
+
+        $card.find('.topic-deleted').attr('name', 'conference[conference_topics]['+index+'][deleted]');
+        $card.find('.topic-name').attr('name', 'conference[conference_topics]['+index+'][name]');
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    // ======= QUICKLINK ============
+
+    reIndexQuickLink();
+
+    $(document).on('click', '.add-asset', function(){
+      var $newAsset = $('.new-element').find('.new-asset');
+      var cloned     = $newAsset.clone();
+
+      cloned.removeClass('new-asset');
+      cloned.addClass('card-asset');
+
+      $('#list-asset').append(cloned);
+      reIndexQuickLink();
+    });
+
+    $(document).on('click', '.remove-asset', function(){
+      var $cardAsset = $(this).parents('.card-asset');
+      $cardAsset.find('.asset-deleted').val(true);
+
+      $cardAsset.addClass('d-none');
+
+      reIndexQuickLink();
+    });
+
+    $( "#list-asset" ).sortable({
+      stop: function(event, ui){
+        reIndexQuickLink();
+      }
+    });
+
+    $( "#list-asset" ).disableSelection();
+
+    function reIndexQuickLink(){
+      var $assets = $('.card-asset');
+      var active   = 0;
+
+      $assets.each(function(index){
+        var $card = $(this);
+        var deleted = $(this).find('.asset-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+        $card.find('.asset-index').html('Quick Link '+ (active));
+
+        $card.find('.asset-id').attr('name', 'conference[conference_quick_links]['+index+'][id]');
+
+        $card.find('.asset-deleted').attr('name', 'conference[conference_quick_links]['+index+'][deleted]');
+        $card.find('.asset-name').attr('name', 'conference[conference_quick_links]['+index+'][label]');
+        $card.find('.asset-position').attr('name', 'conference[conference_quick_links]['+index+'][position]');
+        $card.find('.asset-file').attr('name', 'conference[conference_quick_links]['+index+'][file]');
+        $card.find('.asset-image').attr('name', 'conference[conference_quick_links]['+index+'][image]');
+      });
+
+      bsCustomFileInput.init();
+      showHideDeleteBtn();
+    }
+
+    function showHideDeleteBtn(){
+      var $categories = $('.card-category');
+      var active   = 0;
+
+      $categories.each(function(index){
+        var deleted = $(this).find('.category-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-category').removeClass('d-none');
+      } else {
+        $(document).find('.remove-category').addClass('d-none');
+      }
+
+      var $topics = $('.card-topic');
+      var active   = 0;
+
+      $topics.each(function(index){
+        var deleted = $(this).find('.topic-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-topic').removeClass('d-none');
+      } else {
+        $(document).find('.remove-topic').addClass('d-none');
+      }
+
+      var $assets = $('.card-asset');
+      var active   = 0;
+
+      $assets.each(function(index){
+        var deleted = $(this).find('.asset-deleted').val();
+        if (deleted == 'false') {
+          active += 1;
+        }
+      });
+
+      if (active > 1) {
+        $(document).find('.remove-asset').removeClass('d-none');
+      } else {
+        $(document).find('.remove-asset').addClass('d-none');
+      }
+    }

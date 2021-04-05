@@ -1,0 +1,13 @@
+tr
+  td = role.name
+  td = role.users.size
+  td
+    .btn-group
+      - if can?(:update, 'role')
+        = link_to edit_admin_role_path(role.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'role')
+        = link_to admin_role_path(role),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button"
+            i.fas.fa-trash

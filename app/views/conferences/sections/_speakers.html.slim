@@ -1,0 +1,22 @@
+- grouped_speakers = @speakers.group_by{ |s| s.group }
+- grouped_speakers.each do |group_name, speakers|
+  .instructors style="padding-top:30px; padding-bottom:0px;"
+    .container
+      .row
+        .col
+          .section_title.text-center
+            h2 = group_name.humanize
+      .row.instructors_row.justify-content-md-center
+        - speakers.each do |speaker|
+          .col-lg-4.instructor_col
+            .instructor.text-center style="padding-top: 0px;"
+              .instructor_image_container
+                .instructor_image style="border: 0px"
+                  - if speaker.image.present?
+                    = image_tag speaker.image.url
+              .instructor_name
+                a href="#" = speaker.name
+              - if speaker.conference_position.present?
+                b
+                  .instructor_text.text_primary = speaker.conference_position.humanize
+              .instructor_title = speaker.title

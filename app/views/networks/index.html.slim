@@ -1,0 +1,21 @@
+.course
+  .course_top
+  .container
+    .row.row-lg-eq-height
+      /! Panels
+      .col-lg-11
+        /! Description
+        .tab_panel.description.active
+          .panel_title = t('network.title')
+          .panel_text
+            row.instructors_row.justify-content-md-center
+              - @networks.each do |network|
+                .col.col-lg-4.instructors_col
+                  .instructor.text-center
+                    .instructor_image_container
+                      .instructor_image
+                        = image_tag network.logo.url, class: ''
+                    .instructor_name
+                      a href="#{network.url}" target="_blank"
+                        | #{network.name}
+                      p = network.description

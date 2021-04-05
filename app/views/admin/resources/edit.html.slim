@@ -1,0 +1,23 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Resource
+      .col-sm-6
+        ol.breadcrumb.float-sm-right
+          li.breadcrumb-item
+            = link_to admin_resources_path
+              | Resources
+          li.breadcrumb-item = @resource_page.title
+
+.content
+  .container-fluid
+    = form_with scope: 'resources', url: admin_resource_path(@resource_page), local: true, method: :put, id: 'resources-form' do |f|
+      = render 'forms', f: f, resource_page: @resource_page
+
+      /.card-footer
+      .row
+        .col-md-12
+          = f.submit "Update", class: 'btn btn-flat btn-primary'
+
+= render 'admin/resources/js/form'

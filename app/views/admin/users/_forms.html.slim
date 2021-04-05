@@ -1,0 +1,19 @@
+.form-group
+  label Role *
+  = f.select :role_id, options_for_select(@role_options, @user.role_id), {include_blank: 'Choose Role'}, class: 'form-control source-option select2', style: 'width: 100%;', required: true
+
+.form-group
+  label Name *
+  = f.text_field :name, class: 'network-name form-control', required: true
+
+.form-group
+  label Email *
+  = f.email_field :email, class: 'network-name form-control', required: true
+
+.form-group
+  label Password
+  = f.password_field :password, class: 'form-control', required: @user.new_record?
+
+.form-group
+  label Password Confirmation
+  = f.password_field :password_confirmation, class: 'form-control', required: @user.new_record?

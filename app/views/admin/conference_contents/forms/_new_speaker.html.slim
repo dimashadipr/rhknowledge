@@ -1,0 +1,40 @@
+.col-md-4.new-speaker
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.speaker-index Speaker 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-speaker href="javascript:void(0)"
+          i.fa.fa-trash
+
+    .card-body
+      = f.hidden_field :conference_speaker_id, name: "",
+        class: 'speaker-id', value: nil
+      = f.hidden_field :conference_speaker_deleted, name: "",
+        class: 'speaker-deleted', value: false
+      = f.hidden_field :conference_speaker_position, name: "",
+        class: 'speaker-position', value: false
+
+      .form-group
+        label Name *
+        = f.text_field :conference_speaker_name, name: "", class: 'speaker-name form-control', value: nil
+
+      .form-group
+        label Title *
+        = f.text_field :conference_speaker_title, name: "", class: 'speaker-title form-control', value: nil
+
+      .form-group
+        label Group
+        = f.text_field :conference_speaker_group, name: "", class: 'speaker-group form-control', required: false, value: nil
+
+      .form-group
+        label Position on Conference
+        = f.text_field :conference_speaker_conference_position, name: "", class: 'speaker-conference-position form-control', required: false, value: nil
+
+
+      .form-group
+        label Image *
+        .input-group
+          = f.file_field :conference_speaker_image, name: "", class: 'custom-file-input speaker-image', accept: 'image/*', value: nil
+          label.custom-file-label Image

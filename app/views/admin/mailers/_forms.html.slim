@@ -1,0 +1,31 @@
+.row
+  .col-md-5
+    .card.card-success.card-outline
+      .card-header
+        .card-title
+          span.banner-index Subject
+      .card-body
+        .form-group
+          label Subject *
+          - subject = params.try(:[], 'mailers').try(:[], 'subject') || nil
+          = f.text_field :subject, class: 'form-control', value: subject, required: true
+        /.form-group
+          label File Attachment
+          .input-group
+            .custom-file
+              = f.file_field :files, class: 'custom-file-input', accept: '.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf', multiple: true
+              label.custom-file-label Choose Files
+
+          small.text-helper | Optional, Support Multiple Files
+
+    = render 'admin/mailers/forms/recipient', f: f
+
+  .col-md-7
+    .card.card-warning.card-outline
+      .card-header
+        .card-title
+          span.banner-index Content *
+      .card-body
+        .form-group
+          - content_value = params.try(:[], 'mailers').try(:[], 'content') || nil
+          = text_area_tag 'mailers[content]', nil, class: 'form-control tinymce', rows: 20, cols: 120, required: false, value: content_value

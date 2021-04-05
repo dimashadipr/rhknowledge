@@ -1,0 +1,40 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Conferences
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'conference')
+            = link_to new_admin_conference_path, class: 'btn btn-primary btn-flat'
+              | New Conference
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @conferences, entry_name: 'conference'
+        .card-tools
+          = paginate @conferences, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th Name
+              th Status
+              th Start Time
+              th End Time
+              th style=("width: 10%")  Action
+          tbody
+            - @conferences.each_with_index do |conference|
+              = render 'row', conference: conference
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @conferences, entry_name: 'conference'
+        .float-right
+          = paginate @conferences, theme: :admin
+
+= render 'admin/conferences/js/index'

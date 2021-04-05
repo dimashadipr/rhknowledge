@@ -1,0 +1,11 @@
+| // Javascript Here
+  var $modal = $('#modal-proceed');
+  var klass = "#{@klass}";
+  $modal.find('.modal-header').removeClass('bg-success');
+  $modal.find('.modal-header').removeClass('bg-danger');
+  $modal.find('.modal-header').addClass(klass);
+  $modal.find('.modal-header').find('.modal-title').html("#{@status.humanize}");
+
+  $modal.find('.modal-body').html('#{ j render "admin/payments/forms/proceed", payment_file: @payment, status: @status }');
+  $modal.modal('show');
+  $modal.find('.select2').select2();

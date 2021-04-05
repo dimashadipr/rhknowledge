@@ -1,0 +1,53 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Users
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'user')
+            = link_to new_admin_user_path, class: 'btn btn-primary btn-flat'
+              | New user Profile
+
+.content
+  .container-fluid
+    .card
+      .card-body
+        = form_with scope: 'search', url: admin_users_path, local: true, id: 'form-filter', method: 'get' do |f|
+          .row
+            .col-md-4
+              = f.text_field :query, class: 'form-control', value: params[:search].try(:[], :query), required: false, placeholder: 'Search'
+
+            .col-md-4
+              button.btn.btn-primary.btn-flat Search
+              = link_to admin_users_path
+                button.btn.btn-secondary.btn-flat.ml-2 type="button"
+                  i.fas.fa-sync-alt
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @users, entry_name: 'user'
+        .card-tools
+          = paginate @users, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th Name
+              th Role
+              th Email
+              th style=("width: 10%")  Action
+          tbody
+            - @users.each do |user|
+              = render 'row', user: user
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @users, entry_name: 'user'
+        .float-right
+          = paginate @users, theme: :admin
+
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });

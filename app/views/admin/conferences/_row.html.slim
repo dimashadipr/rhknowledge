@@ -1,0 +1,19 @@
+tr
+  td = conference.name
+  td = conference.status == 1 ? 'Active' : 'Inactive'
+  td = date_format(conference.start_time, 'long')
+  td = date_format(conference.end_time, 'long')
+  td
+    .btn-group
+      - if can?(:create, 'conference')
+        = link_to manage_speakers_admin_conference_path(conference.id), class: 'mr-1'
+          button.btn.btn-info type="button" data-toggle="tooltip" data-placement="top" title="Manage Speakers & Letters"
+            i.fas.fa-users
+      - if can?(:update, 'conference')
+        = link_to edit_admin_conference_path(conference.id), class: 'mr-1'
+          button.btn.btn-primary type="button" data-toggle="tooltip" data-placement="top" title="Edit"
+            i.fas.fa-edit
+      - if can?(:delete, 'conference')
+        = link_to admin_conference_path(conference),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button" data-toggle="tooltip" data-placement="top" title="Delete"
+            i.fas.fa-trash

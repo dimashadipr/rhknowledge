@@ -1,0 +1,95 @@
+= content_for :js
+  = tinymce relative_urls: false
+
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+      $('#mailers_conference_id').trigger('change');
+    });
+
+    // $('.select2').select2();
+
+    $('#mailers_conference_id').select2({
+      placeholder: 'All Participant Category'
+    });
+
+    $('#mailers_conference_participant_id').select2({
+      placeholder: 'All Participant Category'
+    });
+
+    $('#mailers_conference_topic_id').select2({
+      placeholder: 'All Topic'
+    });
+
+    $('#mailers_participant_id').select2({
+      placeholder: 'All Participant'
+    });
+
+    $('.select2-tags').select2({
+      tags: true
+    });
+
+    $('#tab-recipient a').on('click', function(e){
+      e.preventDefault();
+      var selected = $(this).attr('href');
+
+      if (selected == '#tab_regular') {
+        $('#mailers_recipient_type_regular').prop('checked', true);
+        $('#mailers_recipient_type_conference').prop('checked', false);
+        $('#mailers_recipient_list').prop('required', true);
+      } else {
+        $('#mailers_recipient_type_regular').prop('checked', false);
+        $('#mailers_recipient_type_conference').prop('checked', true);
+        $('#mailers_recipient_list').prop('required', false);
+      }
+    });
+
+    $(document).on('change', '#mailers_conference_id', function(){
+      var conference_id = $(this).val();
+
+      $.ajax({
+        url: "#{select_options_admin_conference_participants_path}",
+        data: {conference_id: conference_id},
+        success: function(result){
+          var options = '';
+          $.each(result, function(key, value){
+            options += '<option value="'+value.id+'"> '+value.category+' </option>';
+          });
+
+          $('#mailers_conference_participant_id').html(options);
+        }
+      });
+
+      $.ajax({
+        url: "#{select_options_admin_conference_topics_path}",
+        data: {conference_id: conference_id},
+        success: function(result){
+          var options = '';
+          $.each(result, function(key, value){
+            options += '<option value="'+value.id+'"> '+value.name+' </option>';
+          });
+
+          $('#mailers_conference_topic_id').html(options);
+        }
+      });
+    });
+
+    $(document).on('change', '.participant-filter', function(){
+      var conference_id = $('#mailers_conference_id').val();
+      var category_id = $('#mailers_conference_participant_id').val();
+      var topic_id = $('#mailers_conference_topic_id').val();
+
+      $.ajax({
+        url: "#{select_options_admin_participants_path}",
+        data: {conference_id: conference_id, conference_participant_id: category_id, conference_topic_id: topic_id},
+        success: function(result){
+          var options = '';
+          $.each(result, function(key, value){
+            options += '<option value="'+value.id+'"> '+value.email+' </option>';
+          });
+          $('#mailers_participant_id').html(options);
+        }
+      });
+    });

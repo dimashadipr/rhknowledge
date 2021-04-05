@@ -1,0 +1,42 @@
+.panel_title Pembayaran
+.panel_text
+  .register style="background-color:#ffffff; padding-top:0px;"
+    .container
+      .row
+        /! Register Form
+        .col-lg-12
+          .register_form_container
+            .register_form_title.text_primary Unggah Bukti Pembayaran
+            - if @participant.payment_file.present? && !@participant.payment_file.accepted?
+              p
+                | Bukti Pembayaran Anda Sebelumnya telah ditolak.
+                br
+                | Silahkan upload ulang bukti transfer terbaru Anda.
+
+            - if @participant.payment_file.present? && @participant.payment_file.accepted?
+              - payment_file = @participant.payment_file
+              table
+                tr
+                  td
+                    p Bank Pengirim
+                  td.feature_text.p-3 = payment_file.sender_bank
+                tr
+                  td
+                    p Invoice
+                  td.feature_text.p-3
+                    /= link_to paper_file.file.url, target: '_blank'
+                      = paper_file.file.file.filename
+            - else
+              = form_with url: upload_payment_conferences_path(slug: @slug), scope: 'payment', method: 'post', id: 'form-upload-payment', data: { remote: false } do |f|
+                .row.register_row
+                  .col-lg-12.register_col
+                    = f.text_field :sender_bank, class: 'form_input', required: true, placeholder: "Bank Pengirim"
+
+                  .col-lg-12.register_col
+                    label Bukti Pembayaran
+                    br
+                    = f.file_field :proof, class: 'form-input', required: true, placeholder: 'Upload Paper', accept: '.pdf,.jpg,.jpeg,.png'
+                    br
+                    label Format File: .jpg, .pdf, .jpeg, .png, Max: 1MB
+                  .col
+                    button.form_button.trans_200#btn-paper type="submit" Submit

@@ -1,0 +1,20 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Resource
+      /.col-sm-6
+        .float-right
+          button.btn.btn-primary.btn-flat#btn-save Save
+
+.content
+  .container-fluid
+    = form_with scope: 'resources', url: admin_resources_path, local: true, id: 'resources-form' do |f|
+      = render 'forms', f: f, resource_page: @resource_page
+
+      /.card-footer
+      .row
+        .col-md-12
+          = f.submit "Save", class: 'btn btn-flat btn-primary'
+
+= render 'admin/resources/js/form'

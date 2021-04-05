@@ -1,0 +1,33 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Events
+
+.content
+  .container-fluid
+    .row
+      .col-lg-8
+        .card.card-primary.card-outline.card-outline-tabs
+          .card-header.p-0.border-bottom-0
+            ul#event_tabs.nav.nav-tabs role="tablist"
+              li.nav-item
+                a#event-single-tab.nav-link.active aria-controls="event-single" aria-selected="true" data-toggle="pill" href="#event-single" role="tab"  Single Event
+              li.nav-item
+                a#recurring-tab.nav-link aria-controls="event-recurring" aria-selected="false" data-toggle="pill" href="#event-recurring" role="tab"  Recurring Event
+          .card-body
+            #event_tabsContent.tab-content
+              #event-single.tab-pane.fade.show.active aria-labelledby="event-single-tab" role="tabpanel"
+                = form_with model: @event, url: admin_events_path, local: true do |f|
+                  = render 'admin/events/forms/regular', f: f
+
+                  = f.submit "Save Regular Event", class: 'btn btn-flat btn-primary'
+
+              #event-recurring.tab-pane.fade aria-labelledby="recurring-tab" role="tabpanel"
+                = form_with model: @recurring_event, url: admin_recurring_events_path, local: true do |f|
+                  = render 'admin/events/forms/recurring', f: f
+
+                  = f.submit "Save Recurring Event", class: 'btn btn-flat btn-primary'
+
+
+= render 'admin/events/js/form'

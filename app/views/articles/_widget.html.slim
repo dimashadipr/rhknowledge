@@ -1,0 +1,37 @@
+.sidebar
+  .sidebar_background
+  .sidebar_top
+    a href="#"  Knowledge Hub
+  .sidebar_content
+    /! Features
+    .sidebar_section.features
+      .features_content
+        ul.features_list
+          /! Feature
+          li.d-flex.flex-row.align-items-start.justify-content-start
+            - categories = @resource_page.categories
+            - text = categories.last(2).join(', ')
+            .feature_title
+              i.fas.fa-folder aria-hidden="true"
+              span = text
+          /! Feature
+          li.d-flex.flex-row.align-items-start.justify-content-start
+            .feature_title
+              i.fas.fa-edit aria-hidden="true"
+              span = @resource_page.user.name
+          /! Feature
+          li.d-flex.flex-row.align-items-start.justify-content-start
+            .feature_title
+              i.fas.fa-clock aria-hidden="true"
+              span = date_format(@resource_page.created_at)
+
+    /! You may like
+    .sidebar_section.like
+      .sidebar_title Recent Articles
+      .like_items
+        - @recent_articles.each do |recent_article|
+          .like_item.d-flex.flex-row.align-items-end.justify-content-start
+            .like_title_container
+              = link_to detail_articles_path(recent_article.slug)
+                .like_title = recent_article.title
+              .like_subtitle = recent_article.short_category

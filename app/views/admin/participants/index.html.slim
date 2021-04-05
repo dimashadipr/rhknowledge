@@ -1,0 +1,51 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Participant
+      .col-sm-6
+        .float-right
+
+.content
+  .container-fluid
+    .card
+      .card-body
+        = render 'admin/participants/filter'
+
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @participants, entry_name: 'participant'
+        .card-tools
+          = paginate @participants, theme: :admin
+
+      .card-body.table-responsive.p-0
+        table.table.table-condensed.table-hover
+          thead
+            tr
+              th Name
+              th Contact
+              th Institution
+              th Partisipasi
+              th Topic
+              th File
+              th Register Date
+              th style=("width: 8%")
+          tbody
+            - @participants.each do |participant|
+              = render 'row', participant: participant
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @participants, entry_name: 'participant'
+        .float-right
+          = paginate @participants, theme: :admin
+
+  = render 'admin/participants/modals/assign_reviewer'
+  = render 'admin/participants/modals/reviewer_paper'
+  = render 'admin/participants/modals/final_review'
+  = render 'admin/participants/modals/upload_abstract'
+  = render 'admin/participants/modals/payment_review'
+
+
+= render 'admin/participants/js/index'

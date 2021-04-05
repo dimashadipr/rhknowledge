@@ -1,0 +1,43 @@
+.panel_title Unggah Paper
+.panel_text
+  .register style="background-color:#ffffff; padding-top:0px;"
+    .container
+      .row
+        /! Register Form
+        .col-lg-12
+          .register_form_container
+            .register_form_title.text_primary Paper
+            - if @participant.paper_file.present?
+              - paper_file = @participant.paper_file
+              table
+                tr
+                  td
+                    p Judul Paper
+                  td.feature_text.p-3 = paper_file.paper_title
+                tr
+                  td
+                    p Presenter
+                  td.feature_text.p-3 = paper_file.presenter
+                tr
+                  td
+                    p File Paper
+                  td.feature_text.p-3
+                    = link_to paper_file.file.url, target: '_blank'
+                      = paper_file.file.file.filename
+            - else
+              = form_with url: upload_paper_conferences_path(slug: @slug), scope: 'paper', method: 'post', id: 'form-upload-paper', data: { remote: false } do |f|
+                .row.register_row
+                  .col-lg-12.register_col
+                    = f.text_field :title, class: 'form_input', required: true, placeholder: "Judul Paper"
+
+                  .col-lg-12.register_col
+                    = f.text_field :presenter, class: 'form_input', required: true, placeholder: "Nama Presenter"
+
+                  .col-lg-12.register_col
+                    label File Paper
+                    br
+                    = f.file_field :paper, class: 'form-input', required: true, placeholder: 'Upload Paper', accept: '.doc, .docx, .pdf'
+                    br
+                    label Format File: .docx, .pdf, .doc, Max: 1MB
+                  .col
+                    button.form_button.trans_200#btn-paper type="submit" Submit

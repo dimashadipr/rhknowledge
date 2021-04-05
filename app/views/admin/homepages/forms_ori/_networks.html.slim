@@ -1,0 +1,42 @@
+.card.card-primary
+  .card-header
+    h3.card-title Network Section
+    .card-tools
+      button.btn.btn-tool type="button" data-card-widget="collapse"
+        i.fas.fa-minus
+  .card-body
+    .row#list-network
+      - page_networks = @homepage.page_networks
+      - page_networks = [@homepage.page_networks.new] if page_networks.blank?
+      - page_networks.each_with_index do |page_network, index|
+        .col-md-6.card-network
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.network-index Network #{index+1} 
+
+              .card-tools
+                - hide = page_networks.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-network class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+            .card-body
+              .row
+                .col-md-12
+                  = f.hidden_field :page_network_id, name: "homepage[page_networks][#{index}][id]",
+                    class: 'network-id', value: page_network.id
+                  - position = page_network.position.blank? ? 1 : page_network.position
+                  = f.hidden_field :deleted, name: "homepage[page_networks][#{index}][deleted]",
+                    class: 'network-deleted', value: false
+                  = f.hidden_field :position, name: "homepage[page_networks][#{index}][position]",
+                    class: 'network-position', value: position
+
+                  .form-group
+                    label Network
+                    = f.select :network, options_for_select(@network_options, page_network&.reference_id), {include_blank: 'Choose network'},
+                      class: 'form-control network-option select2',
+                      id: "network-option-#{index}",
+                      name: "homepage[page_networks][#{index}][reference_id]",
+                      required: true
+
+    button.btn.btn-flat.btn-success.add-network type="button"
+      i.fa.fa-plus-square

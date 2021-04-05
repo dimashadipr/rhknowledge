@@ -1,0 +1,11 @@
+---
+:concurrency: 1
+develop:
+  :concurrency: 1
+production:
+  :concurrency: 4
+:queues:
+  - [default, 2]
+  - [mailers, 1]
+  - [ahoy, 1]
+  - [low, 1]

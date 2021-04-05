@@ -1,0 +1,5 @@
+id:
+  success_title: 'Sukses'
+  success_message: 'Selamat anda telah berhasil berlangganan'
+  danger_title: 'Gagal'
+  danger_message: 'Gagal untuk berlangganan'

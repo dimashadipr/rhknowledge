@@ -1,0 +1,74 @@
+tr data-row="#{participant.id}"
+  td.open-detail = participant.full_name
+  td.open-detail = participant.email
+  td.open-detail = participant.institution
+  td.open-detail
+    span.badge.badge-info = participant.participant
+    - if participant.scholarship?
+      br
+      span.badge.badge-success Scholarship
+  td.open-detail
+    - if participant.topic.present?
+      p = participant.topic
+    - else
+      | -
+  td
+    - if participant.abstract_file.present?
+      - extension = participant.abstract_file.file.extension
+      = link_to participant.abstract_file.url, download: "Abstrak #{participant.full_name}.#{extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Abstract File' }
+        span.badge class="#{abstract_status(participant.abstract_status)}"
+          | Abstrak #{participant.abstract_status.humanize}
+
+    - else
+      span.badge.badge-warning Abstract Not Available
+
+    - if participant.payment_file.present?
+      - payment_file = participant.payment_file
+      = link_to payment_file.file.url, download: "Bukti Bayar #{participant.full_name}.#{payment_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+        span.badge class="#{abstract_status(payment_file.status)}"
+          | Payment #{payment_file.status.humanize}
+
+    - if participant.paper_file.present?
+      - paper_file = participant.paper_file
+      = link_to paper_file.file.url, download: "Paper #{participant.full_name}.#{paper_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+        span.badge.badge-info
+          | Paper File
+
+    - if participant.presentation_file.present?
+      - presentation_file = participant.presentation_file
+      = link_to presentation_file.file.url, download: "Presentation #{participant.full_name}.#{presentation_file.extension}", target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Payment File' }
+        span.badge.badge-info
+          | Presetation File
+
+
+  td.open-detail.p-1 = date_format(participant.created_at, 'long')
+  td
+    - if can?(:destroy, 'participant')
+      = link_to admin_participant_path(participant.id), data: { confirm: "Are you sure to delete Participant #{participant.full_name}" }, method: :delete
+        button.btn.btn-danger
+          i.fas.fa-trash
+    .btn-group.ml-1
+      button.btn.btn-info.btn-flat.dropdown-toggle.dropdown-icon data-toggle='dropdown' type='button'
+        span.fas.ellipsis-v
+      .dropdown-menu
+        - if can?(:assign_reviewer, 'participant')
+          - if participant.assign_reviewer?
+            = link_to assign_reviewer_admin_participant_path(participant), class: 'dropdown-item', data: { remote: true }
+              i.fas.fa-share-square.text-yellow.mr-1 data-toggle="tooltip" data-placement="top" title="Assign Abstract Reviewer"
+              | Assign Reviewer Abstract
+        - if can?(:assign_reviewer, 'participant')
+          - if participant.paper_reviewer?
+            = link_to reviewer_paper_admin_participant_path(participant), class: 'dropdown-item', data: { remote: true }
+              i.fas.fa-share-square.text-red.mr-1 data-toggle="tooltip" data-placement="top" title="Assign Paper Reviewer"
+              | Assign Reviewer Paper
+        - if can?(:final_review, 'participant')
+          - if participant.abstract_status == 'need_review'
+            = link_to final_review_admin_participant_path(participant), class: 'dropdown-item', data: { remote: true }
+              i.fas.fa-balance-scale.text-green.mr-1 data-toggle="tooltip" data-placement="top" title="Assign Reviewer"
+              | Final Review
+        - if can?(:upload_abstract, 'participant')
+          = link_to upload_abstract_admin_participant_path(participant), class: 'dropdown-item', data: { remote: true }
+            i.fas.fa-file-upload.text-blue.mr-1 data-toggle="tooltip" data-placement="top" title="Assign Reviewer"
+            | Re-Upload Abstract
+
+= render 'admin/participants/row_detail', participant: participant

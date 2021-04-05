@@ -1,0 +1,17 @@
+= content_for :js
+  = tinymce relative_urls: false
+
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $(document).ready(function () {
+      bsCustomFileInput.init();
+    });
+    $('.select2-page').select2({
+      escapeMarkup: function(markup) {
+        return markup;
+      }
+    });
+
+    $('.select2-multiple').select2({
+      tags: true
+    });

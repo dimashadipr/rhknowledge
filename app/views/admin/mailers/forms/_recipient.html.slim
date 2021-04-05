@@ -1,0 +1,25 @@
+.card.card-info.card-outline
+  .card-header.d-flex.p-0
+    h3.card-title.p-3 Recipient
+    ul.nav.nav-pills.ml-auto.p-2#tab-recipient
+      li.nav-item
+        a.nav-link.active data-toggle="tab" href="#tab_regular"  Regular
+      li.nav-item
+        a.nav-link data-toggle="tab" href="#tab_conference"  Conference
+  .card-body
+    .tab-content
+      #tab_regular.tab-pane.active
+        .form-group
+          label Recipient *
+          - recipient_list = params.try(:[], 'mailers').try(:[], 'recipient_list') || []
+          - recipient_list.reject!{|e| e.blank?}
+          = f.select :recipient_list, options_for_select(recipient_list, recipient_list), {include_blank: false}, class: 'form-control select2-tags', required: false, style: 'width: 100%', multiple: true, tags: true
+
+          small.text-helper | Support multiple recipient
+
+      #tab_conference.tab-pane
+        = render 'admin/mailers/forms/conference', f: f
+
+  .d-none
+    = f.radio_button :recipient_type, 'regular', checked: true
+    = f.radio_button :recipient_type, 'conference', checked: false

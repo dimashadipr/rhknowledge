@@ -1,0 +1,42 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Mailers
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'mailer')
+            = link_to new_admin_mailer_path, class: 'btn btn-primary btn-flat'
+              | New Email
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @mailers, entry_name: 'mailer'
+        .card-tools
+          = paginate @mailers, theme: :admin
+
+      .card-body.p-0
+        table.table.table-striped
+          thead
+            tr
+              th Subject
+              th Status
+              th Recipients
+              th style="width:10%" Submitted Date
+          tbody
+            - @mailers.each do |mailer|
+              = render 'row', mailer: mailer
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @mailers, entry_name: 'mailer'
+        .float-right
+          = paginate @mailers, theme: :admin
+
+
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });

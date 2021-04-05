@@ -1,0 +1,56 @@
+doctype html
+html lang="en"
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    /! The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags
+    title Rhknowledge
+
+    = stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => 'reload'
+
+    link href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css' rel='stylesheet'
+    /! Google font
+    link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet"
+
+    = csrf_meta_tags
+
+  body.hold-transition.login-page
+    .login-box
+      .login-logo
+        a href="/"
+          b> RH
+          | Knowledge
+      .card
+        .card-body.login-card-body
+          p.login-box-msg Sign in to start your session
+          = form_for resource, as: resource_name, url: session_path(resource_name), class: 'form-signin' do |f|
+            - if flash[:alert]
+                .alert.alert-danger.alert-dismissible
+                  button.close aria-hidden="true" data-dismiss="alert" type="button"  ×
+                  = flash[:alert]
+            .input-group.mb-3
+              = f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control', placeholder: 'Email Address'
+              .input-group-append
+                .input-group-text
+                  span.fas.fa-envelope
+            .input-group.mb-3
+              = f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'form-control'
+              .input-group-append
+                .input-group-text
+                  span.fas.fa-lock
+            .row
+              - if devise_mapping.rememberable?
+                .col-8
+                  .icheck-primary
+                    = check_box_tag :remember_me, 1, false, id: 'remember_me', name: 'user[remember_me]'
+                    label for="remember_me"
+                      | Remember Me
+              .col-4
+                button.btn.btn-primary.btn-block type="submit"  Sign In
+          p.mb-1
+            = link_to "Forgot your password?", new_password_path(resource_name)
+        /! /.login-card-body
+    /! /.login-box
+  = javascript_include_tag 'admin', 'data-turbolinks-track' => 'reload'

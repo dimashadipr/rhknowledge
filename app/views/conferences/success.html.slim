@@ -1,0 +1,74 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet" /
+  css:
+    body {
+      text-align: center;
+      padding: 40px 0;
+      background: #EBF0F5;
+    }
+      h1 {
+        color: #88B04B;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
+        margin-bottom: 10px;
+      }
+      p {
+        color: #404F5E;
+        font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+        font-size:20px;
+        margin: 0;
+      }
+    i {
+      color: #9ABC66;
+      font-size: 100px;
+      line-height: 200px;
+      margin-left:-15px;
+    }
+    .card {
+      background: white;
+      padding: 60px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px #C8D0D8;
+      display: inline-block;
+      margin: 0 auto;
+    }
+  body
+    .card
+      h1 Terima kasih
+      p
+        | Kami telah menerima berkas pendaftaran Anda
+      br
+      p
+        | Anda akan kami arahkan ke dalam registrasi webinar dalam
+
+      div style=("border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;")
+        i.checkmark#time 05
+      br
+      br
+      small
+        | atau anda bisa
+        br
+        = link_to conferences_path
+          small Kembali ke halaman sebelumnya
+
+  javascript:
+    var time = 4;
+    setInterval(function() {
+      var seconds = time % 60;
+      var minutes = (time - seconds) / 60;
+      if (seconds.toString().length == 1) {
+        seconds = "0" + seconds;
+      }
+      if (minutes.toString().length == 1) {
+        minutes = "0" + minutes;
+      }
+      document.getElementById("time").innerHTML = seconds;
+      time--;
+      if (time == 0) {
+        window.location.href = "http://bit.ly/RegZoomKonferensiKHRH";
+      }
+    }, 1000);

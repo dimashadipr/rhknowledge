@@ -1,0 +1,16 @@
+- color = 'rgb(255 255 255 / 1)'
+- if index.odd?
+  - color = 'rgb(216 216 216 / 50%)'
+
+tr style="background-color: #{color}"
+  td = participant.full_name
+  td = participant.email
+  td = participant.conference_topic&.name || '-'
+  td = abstract_file&.file&.filename
+  td = reviewer&.user&.name || '-'
+  td = reviewer&.score || '-'
+  td
+    - if reviewer&.updated_at.present?
+      = date_format(reviewer.updated_at)
+    - else
+      | -

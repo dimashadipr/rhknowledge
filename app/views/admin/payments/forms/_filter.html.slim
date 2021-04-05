@@ -1,0 +1,12 @@
+= form_with scope: 'search', url: admin_payments_path, local: true, id: 'form-filter', method: 'get' do |f|
+  .row
+    /.col-md-4
+      = f.text_field :query, class: 'form-control', value: params[:search].try(:[], :query), required: false, placeholder: 'Search'
+    .col-md-4
+      - selected = params[:search].try(:[], :status)
+      = f.select :status, options_for_select([['accepted'], ['rejected'], ['submitted']], selected), { include_blank: 'Select Status' }, class: 'form-control'
+    .col-md-4
+      button.btn.btn-primary.btn-flat Search
+      = link_to admin_reviews_path
+        button.btn.btn-secondary.btn-flat.ml-2 type="button"
+          i.fas.fa-sync-alt

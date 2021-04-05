@@ -1,0 +1,59 @@
+.card.card-success.card-outline
+  .card-header
+    .card-title
+      span.letter-index Messages
+
+  .card-body
+    button.btn.btn-sm.btn-flat.btn-success.add-letter.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Message
+
+    #list-letter.row
+      - conference_letters = @conference.conference_letters&.order(:position)
+      - conference_letters = [ConferenceLetter.new] if conference_letters.blank?
+
+      - conference_letters.each_with_index do |conference_letter, index|
+        .col-md-4.card-letter
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.letter-index Message #{index+1}
+
+              .card-tools
+                - hide = conference_letters.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-letter class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+
+            .card-body
+              - position = conference_letter.position.blank? ? 1 : conference_letter.position
+              = f.hidden_field :conference_letter_id, name: "conference[conference_letters][#{index}][id]",
+                class: 'letter-id', value: conference_letter.id
+              = f.hidden_field :conference_letter_deleted, name: "conference[conference_letters][#{index}][deleted]",
+                class: 'letter-deleted', value: false
+              = f.hidden_field :conference_letter_position, name: "conference[conference_letters][#{index}][position]",
+                class: 'letter-position', value: position
+
+              .form-group
+                label Name *
+                = f.text_field :conference_letter_name, name: "conference[conference_letters][#{index}][name]]", class: 'letter-name form-control', required: true, value: conference_letter.name
+
+              .form-group
+                label Title *
+                = f.text_field :conference_letter_title, name: "conference[conference_letters][#{index}][title]]", class: 'letter-title form-control', required: true, value: conference_letter.title
+
+              .form-group
+                label Message *
+                = f.text_area :conference_letter_message, name: "conference[conference_letters][#{index}][message]]", class: 'letter-message form-control', required: true, value: conference_letter.message
+
+              .form-group
+                label Image *
+                .input-group
+                  .custom-file
+                    .input-group
+                      - required = conference_letter.image.present?
+
+                      = f.file_field :image, name: "conference[conference_letters][#{index}][image]",
+                      class: 'custom-file-input banner-image', id:'conference-image', required: !required, accept: 'image/*', value: conference_letter.image
+                      label.custom-file-label for="conference-image" Image
+              - if conference_letter.image.present?
+                = image_tag(conference_letter.image.preview.url, class: 'img-fluid')

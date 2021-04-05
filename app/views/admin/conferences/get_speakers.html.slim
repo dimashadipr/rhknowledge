@@ -1,0 +1,22 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Conference Content
+      .col-sm-6
+        ol.breadcrumb.float-sm-right
+          li.breadcrumb-item
+            = link_to admin_conferences_path
+              | Conference
+          li.breadcrumb-item = @conference.name
+
+.content
+  .container-fluid
+    .card
+      = form_with url: manage_speakers_admin_conference_path(@conference.id), local: true do |f|
+        = render 'admin/conference_contents/forms', f: f
+
+        .card-footer
+          = f.submit "Save", class: 'btn btn-flat btn-primary'
+
+= render 'admin/conference_contents/js/form'

@@ -1,0 +1,26 @@
+/! Features
+.sidebar_section.features
+  .sidebar_title Peserta
+  .features_content
+    ul.features_list
+      /! Feature
+      li.d-flex.flex-row.align-items-start.justify-content-start
+        .feature_title
+          i.fas.fa-user aria-hidden="true"
+          span = @participant.full_name
+      /! Feature
+      li.d-flex.flex-row.align-items-start.justify-content-start
+        .feature_title
+          i.fa.fa-envelope aria-hidden="true"
+          span = @participant.email
+      /! Feature
+      li.d-flex.flex-row.align-items-start.justify-content-start
+        .feature_title
+          i.fa.fa-id-badge aria-hidden="true"
+          span = @participant.institution
+      /! Feature
+      li.d-flex.flex-row.align-items-start.justify-content-start
+        .feature_title
+          = link_to @participant.abstract_file.url, target: '_blank'
+            i.fa.fa-file aria-hidden="true"
+            span = @participant.abstract_file&.file&.filename

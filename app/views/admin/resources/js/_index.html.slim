@@ -1,0 +1,8 @@
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });
+    $('.select2-page').select2({
+      escapeMarkup: function(markup) {
+        return markup;
+      }
+    });

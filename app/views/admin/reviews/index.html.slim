@@ -1,0 +1,47 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Review
+      .col-sm-6
+        .float-right
+
+.content
+  .container-fluid
+    .card
+      .card-body
+        = render 'admin/reviews/forms/filter'
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @reviews, entry_name: 'review'
+        .card-tools
+          = paginate @reviews, theme: :admin
+
+      .card-body.table-responsive.p-0
+        table.table.table-condensed.table-hover
+          thead
+            tr
+              th Participant
+              th Topic
+              th style="width: 30%" File
+              th Status
+              th Reviewer
+              th Assigned By
+              th Assigned At
+              th
+          tbody
+            - @reviews.each do |review|
+              = render 'row', review: review
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @reviews, entry_name: 'review'
+        .float-right
+          = paginate @reviews, theme: :admin
+
+  = render 'admin/reviews/modals/proceed'
+
+= content_for :js
+  javascript:
+    jsAlert(#{ raw flash.to_json });

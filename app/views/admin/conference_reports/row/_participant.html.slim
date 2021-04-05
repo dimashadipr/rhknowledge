@@ -1,0 +1,10 @@
+tr
+  td = participant.full_name
+  td = participant.email
+  td = participant.phone
+  td = participant.whatsapp
+  td = participant.institution
+  td = participant.institution_phone
+  td = participant&.conference_participant&.category
+  td = participant&.conference_topic&.name
+  td = date_format(participant.created_at)

@@ -1,0 +1,8 @@
+li.dropdown
+  a#navbarDropdown.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" data-toggle-second="tooltip" data-placement="top" title="#{navigation_item.tooltip}"  = navigation_item.title.upcase
+  ul.dropdown-menu aria-labelledby="navbarDropdown"
+    - navigation_item.childrens.each do |nav_children|
+      - if nav_children.dropdown?
+        = render 'shared/navigation/item_dropdown', navigation_item: nav_children
+      - else
+        = render 'shared/navigation/item_reguler', navigation_item: nav_children

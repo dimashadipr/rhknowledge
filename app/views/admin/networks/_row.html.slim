@@ -1,0 +1,19 @@
+tr
+  td
+    - if network.logo.present?
+      = image_tag(network.logo.preview&.url,  class: 'img-fluid')
+
+  td = network.name
+  td
+    a href="#{network.url}" target="_blank" = network.url
+  td = network.description
+  td
+    .btn-group
+      - if can?(:update, 'network')
+        = link_to edit_admin_network_path(network.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'network')
+        = link_to admin_network_path(network),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button"
+            i.fas.fa-trash

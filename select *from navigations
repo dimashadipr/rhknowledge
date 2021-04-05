@@ -1,0 +1,49 @@
+                  List of relations
+ Schema |            Name            | Type  | Owner 
+--------+----------------------------+-------+-------
+ public | ahoy_events                | table | dimas
+ public | ahoy_messages              | table | dimas
+ public | ahoy_visits                | table | dimas
+ public | ar_internal_metadata       | table | dimas
+ public | conference_assets          | table | dimas
+ public | conference_file_reviews    | table | dimas
+ public | conference_letters         | table | dimas
+ public | conference_participants    | table | dimas
+ public | conference_registrations   | table | dimas
+ public | conference_speakers        | table | dimas
+ public | conference_topic_reviewers | table | dimas
+ public | conference_topics          | table | dimas
+ public | conferences                | table | dimas
+ public | events                     | table | dimas
+ public | image_articles             | table | dimas
+ public | inquiries                  | table | dimas
+ public | mailer_files               | table | dimas
+ public | mailer_recipients          | table | dimas
+ public | mailers                    | table | dimas
+ public | navigations                | table | dimas
+ public | networks                   | table | dimas
+ public | page_banner_details        | table | dimas
+ public | page_components            | table | dimas
+ public | page_link_details          | table | dimas
+ public | pages                      | table | dimas
+ public | participant_file_reviews   | table | dimas
+ public | participant_files          | table | dimas
+ public | participant_logs           | table | dimas
+ public | participant_review_scores  | table | dimas
+ public | participants               | table | dimas
+ public | permissions                | table | dimas
+ public | recurring_events           | table | dimas
+ public | resource_details           | table | dimas
+ public | resource_files             | table | dimas
+ public | role_abilities             | table | dimas
+ public | roles                      | table | dimas
+ public | schema_migrations          | table | dimas
+ public | sources                    | table | dimas
+ public | subscriptions              | table | dimas
+ public | taggings                   | table | dimas
+ public | tags                       | table | dimas
+ public | translations               | table | dimas
+ public | users                      | table | dimas
+ public | versions                   | table | dimas
+(44 rows)
+

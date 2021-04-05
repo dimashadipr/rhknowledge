@@ -1,0 +1,12 @@
+//= require jquery
+//= require jquery_ujs
+//= require plugins/jquery-ui
+//= require plugins/bootstrap.bundle
+//= require plugins/moment
+//= require plugins/daterangepicker
+//= require plugins/adminlte
+//= require plugins/bs-custom-file-input
+//= require plugins/select2
+//= require plugins/tree.jquery
+//= require tinymce
+//= require functions

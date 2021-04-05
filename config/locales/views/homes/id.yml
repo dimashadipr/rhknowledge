@@ -1,0 +1,14 @@
+id:
+  title: 'Welcome ID'
+  description: 'Description ID'
+  networks: 'Jejaring dan Rekan Kerja'
+  subscribe_form:
+    title: 'Berlangganan'
+    first_name: 'Nama Awal'
+    last_name: 'Nama Akhir'
+    email: 'Email'
+    institution: 'Institusi'
+    social: 'Detail Kontak'
+  contact_card:
+    title: 'Hubungi Kami'
+    description: 'Lorem Ipsum Description ID'

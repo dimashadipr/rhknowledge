@@ -1,0 +1,38 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Banners
+      .col-sm-6
+        .float-right
+          = link_to new_admin_banner_path, class: 'btn btn-primary btn-flat'
+            | New Banner
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @banners, entry_name: 'banner'
+        .card-tools
+          = paginate @banners, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th style=("width: 15%")  #
+              th Name
+              th Description
+              th style=("width: 10%")  Action
+          tbody
+            - @banners.each do |banner|
+              = render 'row', banner: banner
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @banners, entry_name: 'banner'
+        .float-right
+          = paginate @banners, theme: :admin
+
+= render 'admin/banners/js/index'

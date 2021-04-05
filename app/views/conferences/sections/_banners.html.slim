@@ -1,0 +1,12 @@
+.home.conference_banner#banners
+  /.home_background style=("background-image:url(#{image_path('conference_banner.png')})")
+  .home_background
+    img.img-fluid.d-none.d-md-block.dl-lg-block.d-xl-block src="#{image_path('conferences/desktop_banner.png')}"
+    img.img-fluid.d-block.d.sm-block.d-md-none src="#{image_path('conferences/mobile_banner.png')}"
+  /.home_content
+    .container
+      .row
+        .col.text-center
+          / h1.home_title style="color:#000" = t('banner.title')
+          /.home_button.trans_200
+            a href="#registration"  = t('banner.button')

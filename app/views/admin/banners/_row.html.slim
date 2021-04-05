@@ -1,0 +1,15 @@
+tr
+  td
+    - if banner.image.present?
+      = image_tag(banner.image.preview&.url,  class: 'img-fluid')
+
+  td = banner.label
+  td = banner.sublabel
+  td
+    .btn-group
+      = link_to edit_admin_banner_path(banner.id)
+        button.btn.btn-info type="button"
+          i.fas.fa-edit
+      = link_to admin_banner_path(banner),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+        button.btn.btn-danger type="button"
+          i.fas.fa-trash

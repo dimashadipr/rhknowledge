@@ -1,0 +1,39 @@
+.course
+  .course_top
+  .container
+    .row.row-lg-eq-height
+      /! Panels
+      .col-lg-9
+        .tab_panels
+          /! Tabs
+          .course_tabs_container
+            .container
+              .row
+                .col-lg-9
+                  .tabs.d-flex.flex-row.align-items-center.justify-content-start
+                    .tab.active Full Paper
+                    .tab Pembayaran
+                    .tab Presentasi
+
+          /! Description
+          .tab_panel.description.active
+            = render 'participants/panels/paper'
+
+          /! Curriculum
+          .tab_panel.curriculum
+            = render 'participants/panels/payment'
+
+          .tab_panel.presentation
+            = render 'participants/panels/presentation'
+
+
+      /! Sidebar
+      .col-lg-3
+        .sidebar
+          .sidebar_background
+          .sidebar_top
+            a href="#"  Konferensi Nasional
+          .sidebar_content
+            = render 'participants/feature'
+
+= render 'participants/js/show'

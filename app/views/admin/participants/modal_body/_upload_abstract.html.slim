@@ -1,0 +1,8 @@
+= form_with url: upload_abstract_admin_participant_path, method: 'post', local: true, id: 'form-upload-abstract' do |f|
+  .form-group
+    label Participant
+    = f.text_field :participant_name, value: participant.full_name, class: 'form-control', readonly: true
+
+  .form-group
+    label Abstract File
+    = f.file_field :abstract, class: 'form-control', required: true, placeholder: 'Upload Abstrak', accept: '.doc, .docx, .pdf'

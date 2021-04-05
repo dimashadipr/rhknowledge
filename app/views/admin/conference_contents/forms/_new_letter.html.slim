@@ -1,0 +1,35 @@
+.col-md-4.new-letter
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.letter-index Message 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-letter href="javascript:void(0)"
+          i.fa.fa-trash
+          
+    .card-body
+      = f.hidden_field :conference_letter_id, name: "",
+        class: 'letter-id', value: nil
+      = f.hidden_field :conference_letter_deleted, name: "",
+        class: 'letter-deleted', value: false
+      = f.hidden_field :conference_letter_position, name: "",
+        class: 'letter-position', value: false
+
+      .form-group
+        label Name *
+        = f.text_field :conference_letter_name, name: "", class: 'letter-name form-control', value: nil
+
+      .form-group
+        label Title *
+        = f.text_field :conference_letter_title, name: "", class: 'letter-title form-control', value: nil
+
+      .form-group
+        label Message *
+        = f.text_area :conference_letter_message, name: "", class: 'letter-message form-control', value: nil
+
+      .form-group
+        label Image *
+        .input-group
+          = f.file_field :conference_letter_image, name: "", class: 'custom-file-input letter-image', accept: 'image/*', value: nil
+          label.custom-file-label Image

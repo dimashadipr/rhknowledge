@@ -1,0 +1,35 @@
+.card.card-success.card-outline
+  .card-header
+    .card-title
+      span.topic-index Topics
+
+  .card-body
+    button.btn.btn-sm.btn-flat.btn-success.add-topic.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Topic
+
+    #list-topic.row   
+      - conference_topics = @conference.conference_topics.order(:id)
+      - conference_topics = [@conference.conference_topics.new] if conference_topics.blank?
+      - conference_topics.each_with_index do |conference_topic, index|
+        .col-md-4.card-topic
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.topic-index Topic #{index+1}
+
+              .card-tools
+                - hide = conference_topics.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-topic class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+
+            .card-body
+              = f.hidden_field :conference_topic_id, name: "conference[conference_topics][#{index}][id]",
+                class: 'topic-id', value: conference_topic.id
+              = f.hidden_field :conference_topic_deleted, name: "conference[conference_topics][#{index}][deleted]",
+                class: 'topic-deleted', value: false
+
+              .form-group
+                label Name *
+                = f.text_field :conference_topic_name, name: "conference[conference_topic[#{index}][name]]", class: 'topic-name form-control', required: true, value: conference_topic.name
+

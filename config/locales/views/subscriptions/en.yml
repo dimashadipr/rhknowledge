@@ -1,0 +1,5 @@
+id:
+  success_title: 'Success'
+  success_message: "You've already subscribed"
+  danger_title: 'Failed'
+  danger_message: 'Failed to register subscription'

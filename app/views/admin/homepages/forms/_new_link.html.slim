@@ -1,0 +1,32 @@
+.col-md-4.new-links
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.link-index Link
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-link href="javascript:void(0)"
+          i.fa.fa-trash
+    .card-body
+      = f.hidden_field :page_banner_id, name: "",
+        class: 'link-id', value: nil
+      = f.hidden_field :deleted, name: "",
+        class: 'link-deleted', value: false
+      = f.hidden_field :position, name: "",
+        class: 'link-position', value: 0
+
+      .form-group
+        label Page
+        = f.select :link, options_for_select(@link_options, nil), {include_blank: 'Choose Page'},
+          class: 'form-control link-option select2',
+          id: "link-option-0",
+          name: "",
+          required: false
+      .row
+        .col-md-8
+          .form-group
+            label Image
+            .input-group
+              .custom-file
+                = f.file_field :image, name: "",
+                class: 'custom-file-input link-image', id: "homepage-page-links-", required: false, accept: 'image/*'
+                label.custom-file-label Image

@@ -1,0 +1,42 @@
+= content_for :js
+  script(async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v6.0" rel="preload")
+  script(async="" charset="utf-8" src="https://platform.twitter.com/widgets.js" rel="preload")
+  javascript:
+
+    function validCaptcha() {
+      $('#btn-subscribe').prop('disabled', false);
+      $('#btn-subscribe').css('background', '#834CAA')
+    }
+
+    function expiredCaptcha() {
+      $('#btn-subscribe').prop('disabled', true);
+      $('#btn-subscribe').css('background', '#aaaaab')
+    }
+
+    webPFallbackAll();
+
+    var Calendar = FullCalendar.Calendar;
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new Calendar(calendarEl, {
+      plugins: [ 'bootstrap', 'dayGrid' ],
+      header    : {
+        left  : 'prev,next today',
+        center: 'title'
+      },
+      eventRender: function(info) {
+        $(info.el).tooltip({
+          title: info.event.title,
+          placement: "top",
+          trigger: "hover",
+          container: "body"
+        });
+      },
+      //Random default events
+      events: "#{event_calendar_events_path}",
+      eventColor: '#824CAB',
+      eventTextColor: '#F8952D',
+    });
+
+    calendar.render();
+
+    

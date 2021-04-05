@@ -1,0 +1,27 @@
+- scores = @conference_file_reviews.select{ |r| r.option == 'number' }
+- last_index = 0
+- scores.each_with_index do |cfr, index|
+  - last_index = index
+  = f.hidden_field :criteria, value: cfr.description, name: "score[#{index}][criterion]"
+  = f.hidden_field :file_review, value: cfr.id, name: "score[#{index}][conference_file_review_id]"
+  .row.mt-2
+    .col-md-8
+      = cfr.description.html_safe
+    .col-md-4
+      = f.number_field :score, class: 'form-control', min: cfr.data['score_min'], max: cfr.data['score_max'], required: true, name: "score[#{index}][score]"
+
+      small.text-helper.helper
+        | Score Range #{cfr.data['score_min']} - #{cfr.data['score_max']}
+  hr
+
+- checklist = @conference_file_reviews.select{ |r| r.option == 'checklist' }
+- checklist.each_with_index do |c, idx|
+  .row.mt-2
+    .col-md-12
+      - index = idx + last_index
+      = f.hidden_field :criteria, value: c.description, name: "score[#{index}][criterion]"
+      = f.hidden_field :file_review, value: c.id, name: "score[#{index}][conference_file_review_id]"
+
+      .form-check
+        = f.check_box :check, {class: 'form-check-input', name: "score[#{index}][score]", id: "check_box_score_#{index}"}, 1, 0
+        label.form-check-label for="check_box_score_#{index}" = c.description

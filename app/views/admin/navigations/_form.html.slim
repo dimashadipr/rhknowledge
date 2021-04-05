@@ -1,0 +1,34 @@
+- if @navigation.editable
+  = f.hidden_field :code, value: (@navigation&.code || 'code')
+
+.form-group
+  label Title *
+  = f.text_field :title, class: 'form-control', required: true
+
+.form-group
+  label Position *
+  = f.number_field :position, class: 'form-control', required: true
+
+.form-group
+  label Parents
+  = f.select :navigation_id, options_for_select(@parent_list, @navigation&.navigation_id), {include_blank: 'Choose Sub Menu'},
+    class: 'form-control select2',
+    required: false
+
+.form-group
+  label Page
+  = f.select :page_id, options_for_select(@pages, @navigation&.page_id), {include_blank: 'Empty Page'},
+    class: 'form-control select2',
+    required: false
+
+.form-group
+  label Tooltip
+  = f.text_field :tooltip, class: 'form-control', required: false
+
+= content_for :js
+  javascript:
+    $('.select2').select2({
+      escapeMarkup: function(markup) {
+        return markup;
+      }
+    });

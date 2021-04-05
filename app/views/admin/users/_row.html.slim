@@ -1,0 +1,14 @@
+tr
+  td = user.name
+  td = user.role&.name
+  td = user.email
+  td
+    .btn-group
+      - if can?(:update, 'user')
+        = link_to edit_admin_user_path(user.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'user')
+        = link_to admin_user_path(user),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button"
+            i.fas.fa-trash

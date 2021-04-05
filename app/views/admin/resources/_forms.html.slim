@@ -1,0 +1,64 @@
+.row
+  .col-md-4
+    .card.card-success.card-outline
+      .card-header
+        .card-title
+          span.banner-index General
+      .card-body
+        .form-group
+          label Menu
+          = f.select :navigation_id, options_for_select(@navigation_options, resource_page.page_content&.resource_detail&.navigation_id), {include_blank: 'Choose Menu'}, class: 'form-control source-option select2-page', style: 'width: 100%;', required: false
+
+        .form-group
+          label Title *
+          = f.text_field :title, class: 'form-control', value: resource_page.try(:tr, :title), required: true
+
+        .form-group
+          label Image
+          .input-group
+            .custom-file
+              = f.file_field :image, class: 'custom-file-input', accept: 'image/*', required: false
+              label.custom-file-label Choose Image File
+        .form-group
+          label Tags
+          = f.select :tag_list, options_for_select([], resource_page.page_content&.resource_detail&.tag_list), {include_blank: false}, class: 'form-control select2-multiple', required: false, style: 'width: 100%', multiple: true, tags: true
+        - if resource_page.page_content&.resource_detail&.image.present?
+          .form-group
+            label Image Preview
+            br
+            = image_tag resource_page.page_content.resource_detail.image.preview.url
+
+    .card.card-success.card-outline
+      .card-header
+        .card-title
+          span.banner-index Files
+      .card-body
+        .form-group
+          .input-group
+            .custom-file
+              = f.file_field :files, class: 'custom-file-input', accept: '.xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf', multiple: true
+              label.custom-file-label Choose Files
+        hr
+        table.table
+          thead
+            tr
+              th Files
+              th
+          tbody
+            - resource_page.page_files.each do |page_file|
+              - resource_file = page_file.resource_file
+              tr id="page-file-#{page_file.id}"
+                td = clear_filename(File.basename(resource_file.file.path))
+                td
+                  = link_to admin_page_file_path(page_file),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }, remote: true
+                    button.btn.btn-danger type="button"
+                      i.fas.fa-trash
+
+  .col-md-8
+    .card.card-success.card-outline
+      .card-header
+        .card-title
+          span.banner-index Content
+      .card-body
+        .form-group
+          = text_area_tag 'resources[content]', resource_page.content, class: 'form-control tinymce', rows: 20, cols: 120

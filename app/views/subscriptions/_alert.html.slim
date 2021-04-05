@@ -1,0 +1,12 @@
+- if @class == 'success'
+  .alert.alert-success.alert-dismissible.fade.show role="alert"
+    strong Success
+    | Success to subscribe
+    button.close aria-label="Close" data-dismiss="alert" type="button"
+      span aria-hidden="true"  ×
+- else
+  .alert.alert-danger.alert-dismissible.fade.show role="alert"
+    strong Failed
+    | Failed to subscribe.
+    button.close aria-label="Close" data-dismiss="alert" type="button"
+      span aria-hidden="true"  ×

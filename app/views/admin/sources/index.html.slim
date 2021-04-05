@@ -1,0 +1,38 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Resource Category Source
+      .col-sm-6
+        .float-right
+          = link_to new_admin_source_path, class: 'btn btn-primary btn-flat'
+            | New Category Source
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @sources, entry_name: 'source'
+        .card-tools
+          = paginate @sources, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th style=("width: 10%")  #
+              th Code
+              th Name
+              th style=("width: 10%")  Action
+          tbody
+            - @sources.each do |source|
+              = render 'row', source: source
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @sources, entry_name: 'source'
+        .float-right
+          = paginate @sources, theme: :admin
+
+= render 'admin/sources/js/index'

@@ -1,0 +1,17 @@
+.form-group
+  label Name *
+  = f.text_field :title, class: 'network-name form-control', required: true
+
+.form-group
+  label Description
+  = f.text_area :description, class: 'form-control'
+
+.row
+  .col-md-6
+    .form-group
+      label Start Date *
+      = f.text_field :start_date, class: 'form-control datepicker', required: true, value: date_format(@event&.start_date, 'datepicker')
+  .col-md-6
+    .form-group
+      label End Date *
+      = f.text_field :end_date, class: 'form-control datepicker', required: true, value: date_format(@event&.start_date, 'datepicker')

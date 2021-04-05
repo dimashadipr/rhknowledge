@@ -1,0 +1,9 @@
+.col-md-3.col-sm-6.col-xs-6
+  .course
+    = link_to detail_articles_path(resource_page.slug), class: 'course-img'
+      = image_tag(resource_page.image&.url)
+      i.course-link-icon.fa.fa-link
+    a.course-title href="#" = resource_page.try(:tr, :title)
+    .course-details
+      span.course-category = resource_page.source.name
+      /span.course-price.course-free Free
