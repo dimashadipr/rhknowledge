@@ -1,0 +1,33 @@
+.events
+  .container
+    .row.events_row.justify-content-md-center
+      - @homepage.page_links.order(position: :asc).find_in_batches(batch_size: 3) do |group|
+        - group.each do |page_link|
+          - link_detail = page_link.link_detail
+          - page = link_detail&.page
+          - next if page.blank?
+
+          .col-sm-2.col-4.event_col
+            .event
+              .event_image.d-sm
+                table.event-table
+                  tbody
+                    tr 
+                      td.align-middle.text-center class="#{ link_detail.image.present? ? 'p-3':'' }"
+                        - if link_detail.image.present?
+                          - image_url = link_detail.image.url
+                          - image_url = link_detail.image.webp.url if link_detail.image.webp.present?
+
+                          = link_to detail_articles_path(page.slug)
+                            = image_tag image_url, class: 'd-block w-100', data: { webp: true, fallback:  link_detail.image.url }
+
+                        - else
+                          = link_to detail_articles_path(page.slug)
+                            h2
+                              i.fas.fa-paperclip.mr-3
+                              = page.title
+
+              .event_body.align-items-center.justify-content-start.text-center#kalender style="padding-top:0px"
+                .event_title
+                  = link_to detail_articles_path(page.slug), class: 'text_secondary'
+                    = page.title

@@ -1,0 +1,48 @@
+.home
+  .container style="margin-top: 120px;"
+    .row
+      .col-md-9
+        #carouselExampleCaptions.carousel.slide data-ride="carousel"
+          ol.carousel-indicators
+            li.active data-slide-to="0" data-target="#carouselExampleCaptions"
+            li data-slide-to="1" data-target="#carouselExampleCaptions"
+            li data-slide-to="2" data-target="#carouselExampleCaptions"
+          .carousel-inner
+            - @homepage.page_banners.each_with_index do |page_banner, index|
+              - active_class = index.zero? ? 'active' : ''
+
+              .carousel-item class="#{active_class}"
+                - if page_banner.banner_detail.url.present?
+                  - image_url = page_banner.banner_detail.image.url
+                  - if page_banner.banner_detail.image.webp.present?
+                    - image_url = page_banner.banner_detail.image.webp.url
+                  a href="#{page_banner.banner_detail.url}" target="_blank"
+                    = image_tag image_url, class: 'd-block w-100', data: { webp: true, fallback:  page_banner.banner_detail.image_url }
+                - else
+                  = image_tag page_banner.banner_detail.image_url(:webp), class: 'd-block w-100', data: { webp: true, fallback:  page_banner.banner_detail.image_url }
+
+          a.carousel-control-prev data-slide="prev" href="#carouselExampleCaptions" role="button"
+            span.carousel-control-prev-icon aria-hidden="true"
+            span.sr-only Previous
+          a.carousel-control-next data-slide="next" href="#carouselExampleCaptions" role="button"
+            span.carousel-control-next-icon aria-hidden="true"
+            span.sr-only Next
+      .col-sm-3
+        .row
+          .col-sm-12
+            .card style="margin-top: 8px;"
+              a href="http://117.53.44.190/"
+                img.img-fluid style="height:100%; width:100%;" src="#{image_path('data.jpg')}"
+                          .bottom-left style="position: absolute;bottom: 18px;left: 40px;"
+                            a href="http://117.53.44.190/"
+                              p 
+                                b style="color:white; font-size: 23px; font-family: 'Montserrat', sans-serif;" Data
+
+          .col-sm-12.mt-4
+              .card.mb-3
+                  a href="https://lms2.rhknowledge.com"
+                    img.img-fluid style="height:100%; width:100%;" src="#{image_path('lms.jpg')}"
+                              .bottom-left style="position: absolute;bottom: 18px;left: 40px;"
+                                a href="https://lms2.rhknowledge.com"
+                                  p 
+                                    b style="color:white; font-size: 23px; font-family: 'Montserrat', sans-serif;" LMS

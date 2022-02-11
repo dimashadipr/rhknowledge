@@ -1,0 +1,17 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Networks
+
+.content
+  .container-fluid
+    .card
+      = form_with model: @source, url: admin_sources_path, local: true do |f|
+        .card-body
+          = render 'forms', f: f
+
+        .card-footer
+          = f.submit "Save", class: 'btn btn-flat btn-primary'
+
+= render 'admin/networks/js/form'

@@ -1,0 +1,44 @@
+.card
+  .card-body
+    button.btn.btn-sm.btn-flat.btn-success.add-banner.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Banner
+    .row#list-banner
+      - page_banners = @homepage.page_banners
+      - page_banners = [@homepage.page_banners.new] if page_banners.blank?
+      - page_banners.each_with_index do |page_banner, index|
+        .col-md-6.card-banner
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.banner-index Banner #{index+1}
+
+              .card-tools
+                - hide = page_banners.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-banner class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+            .card-body
+              .row
+                .col-md-8
+                  = f.hidden_field :page_banner_id, name: "homepage[page_banners][#{index}][id]",
+                    class: 'banner-id', value: page_banner.id
+                  - position = page_banner.position.blank? ? 1 : page_banner.position
+                  = f.hidden_field :deleted, name: "homepage[page_banners][#{index}][deleted]",
+                    class: 'banner-deleted', value: false
+                  = f.hidden_field :position, name: "homepage[page_banners][#{index}][position]",
+                    class: 'banner-position', value: position
+
+                  .form-group
+                    label Url
+                    = f.text_field :url, name: "homepage[page_banners][#{index}][url]",
+                      class: 'form-control banner-url', value: page_banner&.banner_detail&.url
+                  .form-group
+                    label Image
+                    .input-group
+                      .custom-file
+                        = f.file_field :image, name: "homepage[page_banners][#{index}][image]",
+                        class: 'custom-file-input banner-image', id: "homepage-page-banners-#{index}", required: !page_banner&.banner_detail&.image.present?, accept: 'image/*'
+                        label.custom-file-label Image
+                .col-md-4
+                  - if page_banner&.banner_detail&.image.present?
+                    = image_tag(page_banner.banner_detail.image.preview&.url, class: 'img-fluid')

@@ -1,0 +1,50 @@
+.card.card-primary.card-outline
+  .card-header
+    .card-title
+      span.banner-index General
+
+  .card-body
+    .row
+      .col-md-6
+        .card
+          .card-body
+            = f.hidden_field :id, class: 'network-id form-control'
+
+            .form-group
+              label Name *
+              = f.text_field :name, class: 'network-name form-control', required: true
+
+            .form-group
+              label Status *
+              .row
+                label.btn.bg-green
+                  = f.radio_button :status, 1, class: 'final-review-status', required: true
+                  | Active
+                label.btn.bg-red
+                  = f.radio_button :status, 0, class: 'final-review-status', required: true
+                  | Inactive
+
+      .col-md-6
+        .card
+          .card-body
+            .row
+              .col-md-6
+                .form-group
+                  label Conference Start Time *
+                  = f.datetime_field :start_time, class: 'network-name form-control', required: true
+
+              .col-md-6
+                .form-group
+                  label Conference End Time *
+                  = f.datetime_field :end_time, class: 'network-name form-control', required: true
+
+            = render 'admin/conferences/forms/registration', f: f
+
+.new-element.d-none
+  = render 'admin/conferences/forms/new_asset', f: f
+  = render 'admin/conferences/forms/new_category', f: f
+  = render 'admin/conferences/forms/new_topic', f: f
+
+= render 'admin/conferences/forms/assets', f: f
+= render 'admin/conferences/forms/categories', f: f
+= render 'admin/conferences/forms/topics', f: f

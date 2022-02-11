@@ -1,0 +1,40 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Review
+      .col-sm-6
+        .float-right
+
+.content
+  .container-fluid
+    .card
+      .card-body
+        = render 'admin/payments/forms/filter'
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @payments, entry_name: 'payment'
+        .card-tools
+          = paginate @payments, theme: :admin
+
+      .card-body.table-responsive.p-0
+        table.table.table-condensed.table-hover
+          thead
+            tr
+              th Participant
+              th File
+              th Status
+              th Submitted Date
+              th
+          tbody
+            - @payments.each do |payment|
+              = render 'row', payment: payment
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @payments, entry_name: 'payment'
+        .float-right
+          = paginate @payments, theme: :admin
+
+  = render 'admin/payments/modals/proceed'

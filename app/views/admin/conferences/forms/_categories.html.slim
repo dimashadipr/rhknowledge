@@ -1,0 +1,42 @@
+.card.card-success.card-outline
+  .card-header
+    .card-title
+      span.category-index Categories
+
+  .card-body
+    button.btn.btn-sm.btn-flat.btn-success.add-category.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Category
+
+    #list-category.row
+      - conference_participants = @conference.conference_participants&.order(:id)
+      - conference_participants = [@conference.conference_participants.new] if conference_participants.blank?
+      - conference_participants.each_with_index do |conference_participant, index|
+        .col-md-4.card-category
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.category-index Category #{index+1}
+
+              .card-tools
+                - hide = conference_participants.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-category class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+
+            .card-body
+              = f.hidden_field :conference_participant_id, name: "conference[conference_participants][#{index}][id]",
+                class: 'category-id', value: conference_participant.id
+              = f.hidden_field :conference_participant_deleted, name: "conference[conference_participants][#{index}][deleted]",
+                class: 'category-deleted', value: false
+
+              .form-group
+                label Name *
+                = f.text_field :conference_participant_category, name: "conference[conference_participants][#{index}][category]]", class: 'category-name form-control', required: true, value: conference_participant.category
+
+              .form-group
+                label Registration Start Time
+                = f.datetime_field :conference_participant_start_time, name: "conference[conference_participants][#{index}][start_time]]", class: 'category-start form-control', value: conference_participant&.start_time&.strftime("%FT%T")
+
+              .form-group
+                label Registration End Time
+                = f.datetime_field :conference_participant_end_time, name: "conference[conference_participants][#{index}][end_time]]", class: 'category-end form-control', value: conference_participant&.end_time&.strftime("%FT%T")

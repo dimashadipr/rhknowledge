@@ -1,0 +1,35 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Subscription
+      .col-sm-6
+        .float-right
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @subscriptions, entry_name: 'subscription'
+        .card-tools
+          = paginate @subscriptions, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th Name
+              th Email
+              th Institution
+              th Status
+              th style=("width: 10%")  Action
+          tbody
+            - @subscriptions.each do |subscription|
+              = render 'row', subscription: subscription
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @subscriptions, entry_name: 'subscription'
+        .float-right
+          = paginate @subscriptions, theme: :admin

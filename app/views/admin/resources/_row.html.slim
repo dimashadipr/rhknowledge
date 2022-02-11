@@ -1,0 +1,24 @@
+tr
+  td
+    - if resource.page_content&.resource_detail&.image.present?
+      = image_tag(resource.page_content&.resource_detail&.image&.preview&.url,  class: 'img-fluid')
+  td
+    - resource.categories.each do |nav|
+      span.badge.badge-info.mr-1 = nav
+  td
+    = resource.try(:tr, :title)
+    br
+    b Tags
+    - resource.tag_list.each do |tag|
+      small.ml-1.badge.badge-info = tag
+  td = truncate(strip_tags(resource.content)&.html_safe, length: 256)
+  td
+    .btn-group
+      - if can?(:update, 'resource')
+        = link_to edit_admin_resource_path(resource.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'resource')
+        = link_to admin_resource_path(resource),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+          button.btn.btn-danger type="button"
+            i.fas.fa-trash

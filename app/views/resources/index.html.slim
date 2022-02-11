@@ -1,0 +1,193 @@
+/! Hero-area
+.hero-area.section
+  /! Backgound Image
+  .bg-image.bg-parallax.overlay style="background-image:url(#{image_path('page-background.jpg')})"
+  /! /Backgound Image
+  .container
+    .row
+      .col-md-10.col-md-offset-1.text-center
+        ul.hero-area-tree
+          li
+            = link_to '/'
+              | Home
+          li Articles
+        h1.white-text Article Page
+/! /Hero-area
+/! Blog
+#blog.section
+  /! container
+  .container
+    /! row
+    .row
+      /! main blog
+      #main.col-md-9
+        /! row
+        .row
+          /! single blog
+          .col-md-6
+            .single-blog
+              .blog-img
+                = link_to articles_path
+                  = image_tag 'blog01.jpg'
+              h4
+                a href="blog-post.html"  Pro eu error molestie deserunt. At per viderer bonorum persecuti.
+              .blog-meta
+                span.blog-meta-author
+                  | By:
+                  a href="#"  John Doeasdsad
+                .pull-right
+                  span 18 Oct, 2017
+                  span.blog-meta-comments
+                    a href="#"
+                      i.fa.fa-comments
+                      | 35
+          /! /single blog
+          /! single blog
+          .col-md-6
+            .single-blog
+              .blog-img
+                = link_to articles_path
+                  = image_tag 'blog02.jpg'
+              h4
+                a href="blog-post.html"  Pro eu error molestie deserunt. At per viderer bonorum persecuti.
+              .blog-meta
+                span.blog-meta-author
+                  | By:
+                  a href="#"  John Doe
+                .pull-right
+                  span 18 Oct, 2017
+                  span.blog-meta-comments
+                    a href="#"
+                      i.fa.fa-comments
+                      | 35
+          /! /single blog
+          /! single blog
+          .col-md-6
+            .single-blog
+              .blog-img
+                = link_to articles_path
+                  = image_tag 'blog03.jpg'
+
+              h4
+                a href="blog-post.html"  Pro eu error molestie deserunt. At per viderer bonorum persecuti.
+              .blog-meta
+                span.blog-meta-author
+                  | By:
+                  a href="#"  John Doe
+                .pull-right
+                  span 18 Oct, 2017
+                  span.blog-meta-comments
+                    a href="#"
+                      i.fa.fa-comments
+                      | 35
+          /! /single blog
+          /! single blog
+          .col-md-6
+            .single-blog
+              .blog-img
+                = link_to articles_path
+                  = image_tag 'blog04.jpg'
+              h4
+                a href="blog-post.html"  Pro eu error molestie deserunt. At per viderer bonorum persecuti.
+              .blog-meta
+                span.blog-meta-author
+                  | By:
+                  a href="#"  John Doe
+                .pull-right
+                  span 18 Oct, 2017
+                  span.blog-meta-comments
+                    a href="#"
+                      i.fa.fa-comments
+                      | 35
+          /! /single blog
+        /! /row
+        /! row
+        .row
+          /! pagination
+          .col-md-12
+            .post-pagination
+              a.pagination-back.pull-left href="#"  Back
+              ul.pages
+                li.active 1
+                li
+                  a href="#"  2
+                li
+                  a href="#"  3
+                li
+                  a href="#"  4
+              a.pagination-next.pull-right href="#"  Next
+          /! pagination
+        /! /row
+      /! /main blog
+      /! aside blog
+      #aside.col-md-3
+        /! search widget
+        .widget.search-widget
+          form
+            input.input name="search" type="text"
+            button
+              i.fa.fa-search
+        /! /search widget
+        /! category widget
+        .widget.category-widget
+          h3 Categories
+          a.category href="#"
+            | Web
+            span 12
+          a.category href="#"
+            | Css
+            span 5
+          a.category href="#"
+            | Wordpress
+            span 24
+          a.category href="#"
+            | Html
+            span 78
+          a.category href="#"
+            | Business
+            span 36
+        /! /category widget
+        /! posts widget
+        .widget.posts-widget
+          h3 Recents Posts
+          /! single posts
+          .single-post
+            a.single-post-img href="blog-post.html"
+              = image_tag 'post01.jpg'
+            a href="blog-post.html"  Pro eu error molestie deserunt.
+            p
+              small By : John Doe .18 Oct, 2017
+          /! /single posts
+          /! single posts
+          .single-post
+            a.single-post-img href="blog-post.html"
+              = image_tag 'post02.jpg'
+            a href="blog-post.html"  Pro eu error molestie deserunt.
+            p
+              small By : John Doe .18 Oct, 2017
+          /! /single posts
+          /! single posts
+          .single-post
+            a.single-post-img href="blog-post.html"
+              = image_tag 'post03.jpg'
+            a href="blog-post.html"  Pro eu error molestie deserunt.
+            p
+              small By : John Doe .18 Oct, 2017
+          /! /single posts
+        /! /posts widget
+        /! tags widget
+        .widget.tags-widget
+          h3 Tags
+          a.tag href="#"  Web
+          a.tag href="#"  Photography
+          a.tag href="#"  Css
+          a.tag href="#"  Responsive
+          a.tag href="#"  Wordpress
+          a.tag href="#"  Html
+          a.tag href="#"  Website
+          a.tag href="#"  Business
+        /! /tags widget
+      /! /aside blog
+    /! row
+  /! container
+/! /Blog

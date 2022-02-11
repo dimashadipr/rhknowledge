@@ -1,0 +1,21 @@
+
+br#network 
+br/
+
+.events style="padding-top: 50px;"
+  .container
+    .text-center
+      h2 = t('networks')
+    .row.instructors_row
+      - @networks.each do |network|
+        .col.col-lg-3.instructors_col
+          .instructor.text-center style="padding-right:0px; padding-left:0px;"
+            .instructor_image_container
+              .instructor_image
+                span.helper
+                = image_tag network.logo.url, class: ''
+            .instructor_name
+              a href="#{network.url}" target="_blank"
+                | #{network.name}
+br/
+br/

@@ -1,0 +1,39 @@
+.courses
+  .container
+    .row.courses_row
+      /! Course
+      - @resource_pages.each do |page|
+        .col-lg-3.course_col
+          .course
+            .course_image
+              - if page.page_content&.resource_detail&.image.present?
+                = image_tag(page.page_content&.resource_detail&.image&.url)
+              /img alt="" src="images/course_4.jpg"
+            .course_body
+              .course_title
+                = link_to detail_articles_path(page.slug)
+                  | #{page.title}
+              .course_info
+                ul
+                  li
+                    = page.user.name
+                  li
+                    span.badge.badge-info
+                      = page.category&.title
+              .course_text
+                - content = strip_tags(page&.content)&.html_safe
+                p = truncate(content, length: 75)
+            .course_footer.d-flex.flex-row.align-items-center.justify-content-start
+              .course_students
+                i.far.fa-calendar-alt aria-hidden="true"
+                span = date_format(page.created_at, 'short')
+              /.course_rating.ml-auto
+                i.fa.fa-star aria-hidden="true"
+                span 4,5
+              .course_mark.course_free.trans_200
+                = link_to detail_articles_path(page.slug)
+                  | Detail
+
+    .row.justify-content-md-center.mt-4
+      .col-md-12
+        = paginate @resource_pages, theme: :admin

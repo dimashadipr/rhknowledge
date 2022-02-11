@@ -1,0 +1,26 @@
+.form-group
+  label Name *
+  = f.text_field :name, class: 'network-name form-control', required: true
+
+.form-group
+  label Repeat *
+  = f.select :category, options_for_select(@repeat_options, @recurring_event.category), { include_blank: 'Choose Category' },
+    class: 'form-control select2', required: true
+
+.form-group.d-none#form-day-number
+  label Days *
+  = f.select :day_number, options_for_select(@day_options, @recurring_event.day_number), { include_blank: 'Choose Days' },
+    class: 'form-control select2', required: false
+
+.form-group.d-none#form-day-date
+  label Day Dates *
+  = f.select :day_date, options_for_select(@date_options, @recurring_event.day_date), { include_blank: 'Choose Days' },
+    class: 'form-control select2', required: false
+
+.form-group.d-none#form-month-date
+  label Month Dates *
+  = f.select :month_number, options_for_select(@month_options, @recurring_event.month_number), { include_blank: 'Choose Days' },
+    class: 'form-control select2', required: false
+
+
+= render 'admin/events/js/recurring'

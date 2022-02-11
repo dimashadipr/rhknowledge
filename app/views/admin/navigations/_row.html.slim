@@ -1,0 +1,31 @@
+tr
+  td
+    - if navigation.parent.present?
+      - nav_sub = navigation.parent
+      - nav_parent = nav_sub.parent
+      - if nav_parent.present?
+        = link_to admin_navigation_path(nav_parent.id)
+          | #{nav_parent&.title}
+      - else
+        = link_to admin_navigations_path
+          | Main menu
+      | - #{nav_sub&.title}
+    - else '-'
+  td
+    - childrens = navigation.childrens
+    = link_to admin_navigation_path(navigation.id)
+      | #{navigation.title}
+    - if childrens.present?
+      span.badge.badge-info.ml-2 #{childrens.size} Sub Menu
+  td = navigation.page&.title
+  td
+    .btn-group
+      - if can?(:update, 'navigation')
+        = link_to edit_admin_navigation_path(navigation.id)
+          button.btn.btn-info type="button"
+            i.fas.fa-edit
+      - if can?(:delete, 'navigation')
+        - if navigation.editable
+          = link_to admin_navigation_path(navigation),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+            button.btn.btn-danger type="button"
+              i.fas.fa-trash

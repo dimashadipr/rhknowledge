@@ -1,0 +1,23 @@
+- participant = review.participant
+- participant_file = review.participant_file
+tr data-review-id="#{review.id}"
+  td data-participant-id="#{participant.id}"
+    | #{participant.full_name}
+    br
+    span.badge.badge-info #{participant.institution}
+  td = participant.topic
+  td data-participant-file-id="#{participant_file.id}"
+    span.badge class="#{participant_file(participant_file.type)}" = participant_file.type
+    br
+    span.badge.badge-secondary.mr-1 = participant_file.file.identifier.truncate(50)
+    = link_to participant_file.file.url, target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Abstract File' }
+      i.fas.fa-file-download
+  td
+    span.badge class="#{abstract_status(review.status)}" = review.status.humanize
+  td = review&.user&.name
+  td = review&.creator&.name
+  td = date_format(review.created_at, 'long')
+  td
+    - if review.proceed? && can?(:update, 'review')
+      = link_to edit_admin_review_path(id: review.id), data: { remote: true }
+        button.btn.btn-flat.btn-info.mr-2 Proceed

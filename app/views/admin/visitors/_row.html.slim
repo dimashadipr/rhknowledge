@@ -1,0 +1,13 @@
+- visits = Ahoy::Visit.where(visitor_token: visitor.visitor_token).order(started_at: :desc)
+- latest_visit = visits.last
+tr.item
+  td
+    = link_to detail_visitor_admin_visitors_path(visitor_token: visitor.visitor_token)
+      = visitor.visitor_token
+  td = latest_visit.origin
+  td
+    - if visits.size > 1
+      span.badge.badge-info Recurring
+    - else
+      span.badge.badge-success New Visitor
+  td = date_format(latest_visit.started_at, 'long')

@@ -1,0 +1,48 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Navigation
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'navigation')
+            = link_to new_admin_navigation_path, class: 'btn btn-primary btn-flat'
+              | New Navigation Pages
+
+.content
+  .container-fluid
+    .row
+      .col-md-8
+        .card
+          .card-header
+            .card-title
+              = page_entries_info @navigations, entry_name: 'navigation'
+            .card-tools
+              = paginate @navigations, theme: :admin
+
+          .card-body.p-0
+            table.table
+              thead
+                tr
+                  th Sub
+                  th Title
+                  th Page
+                  th style=("width: 10%")  Action
+              tbody
+                - @navigations.each do |navigation|
+                  = render 'row', navigation: navigation
+
+          .card-footer.clearfix
+            .float-left
+              = page_entries_info @navigations, entry_name: 'navigation'
+            .float-right
+              = paginate @navigations, theme: :admin
+
+      .col-md-4
+        .card
+          .card-header
+            .card-title Preview
+          .card-body
+            #tree-nav data-url="#{tree_data_admin_navigations_path}"
+
+= render 'js'

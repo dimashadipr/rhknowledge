@@ -1,0 +1,48 @@
+/! Register
+.register style="background-color:#e8e4e459"
+  .container
+    .row
+      /! Register Form
+      .col-lg-6
+        .register_form_container
+          .register_form_title.text_primary style="text-align: center;" = t('subscribe_form.title')
+          = form_with url: subscriptions_path, scope: 'subscriptions', method: 'post' do |f|
+            .row.register_row style="text-align: center;"
+              .col-lg-6.register_col 
+                = f.text_field :first_name, class: 'form_input', required: true, placeholder: "#{t('subscribe_form.first_name')}"
+              .col-lg-6.register_col 
+                = f.text_field :last_name, class: 'form_input', required: true, placeholder: "#{t('subscribe_form.last_name')}"
+              .col-lg-6.register_col 
+                = f.email_field :email, class: 'form_input', required: true, placeholder: "#{t('subscribe_form.email')}"
+              .col-lg-6.register_col 
+                = f.text_field :institution, class: 'form_input', required: true, placeholder: "#{t('subscribe_form.institution')}"
+              /! .col-lg-12
+                = recaptcha_tags(callback: 'validCaptcha', expired_callback: 'expiredCaptcha')
+              .col-lg-12
+                #subscriptions-alert
+
+              .col
+                button.form_button.trans_200#btn-subscribe disabled="disabled" type="submit" style="background: #aaaaab"  Submit
+      /! Register Timer
+      .col-lg-6
+        .contact_details
+          .text_primary.contact_details_title style="text-align:center;" = t('subscribe_form.social')
+          .row
+            .col-md-12
+              .row style="margin-top: 15px; padding-left:18px;"
+                .col-12 style="padding-bottom:10px;"
+                  i.fas.fa-envelope.fa-lg.mr-2 
+                    a style="font-size:14px; font-weight:600; padding-left: 5px; font-family: 'Montserrat', sans-serif;" rhknowledge@ui.ac.id
+                .col-12 style="padding-bottom:10px;"
+                  i.fab.fa-instagram.fa-lg.mr-2
+                    a style="font-size:14px; font-weight:600; padding-left: 5px; font-family: 'Montserrat', sans-serif;" @knowledgehubrh
+                .col-12 style="padding-bottom:10px;"
+                  i.fab.fa-facebook.fa-lg.mr-2
+                    a style="font-size:14px; font-weight:600; padding-left: 5px; font-family: 'Montserrat', sans-serif;" Knowledge Hub for Reproductive Health
+                .col-12 style="padding-bottom:10px;"
+                  i.fab.fa-twitter.fa-lg.mr-2
+                    a style="font-size:14px; font-weight:600; padding-left: 5px; font-family: 'Montserrat', sans-serif;" @KnowledgeHubRH
+                .col-12 style="padding-bottom:10px;"
+                  i.fas.fa-map-marker.fa-lg.mr-2
+                    a style="font-size:14px; font-weight:600; padding-left: 5px; font-family: 'Montserrat', sans-serif;" Sekretariat Knowledge Hub Gedung Mochtar Lt. 1 Jln. Pegangsaan Timur No. 16, Jakarta Pusat
+                

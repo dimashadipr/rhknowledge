@@ -1,0 +1,6 @@
+- if navigation_item.page.present?
+  = link_to detail_articles_path(navigation_item.page.slug), data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+    | #{navigation_item.title.upcase}
+- else
+  = link_to landing_article_path(navigation_item.code), data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+    | #{navigation_item.title.upcase}

@@ -1,0 +1,83 @@
+/! Footer
+footer.footer
+  .footer_body
+    .container
+      .row
+        /! Newsletter
+        .col-lg-3.footer_col
+          .newsletter_container.d-flex.flex-column.align-items-start.justify-content-end
+            .footer_logo.mb-auto
+              a href="#"  RHKnowledge
+        /! About
+        .col-lg-2.offset-lg-3.footer_col
+          div
+            .footer_title References
+            ul.footer_list
+              - navigation_items.each do |navigation_item|
+                - if navigation_item.code == 'upcoming_events'
+                - elsif navigation_item.code == 'networks_and_partners'
+                - elsif navigation_item.code == 'contacts'
+                -else
+                  li
+                    - if navigation_item.page.present?
+                      = link_to detail_articles_path(navigation_item.page.slug), data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                        | #{navigation_item.title.upcase}
+                    - else
+                      = link_to landing_article_path(navigation_item.code), data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                        | #{navigation_item.title.upcase}
+                
+          
+        /! Help & Support
+        .col-lg-2.footer_col
+          .footer_title Help &amp; Support
+          ul.footer_list
+            - navigation_items.each do |navigation_item|
+              - if navigation_item.code == 'upcoming_events'
+                li
+                  = link_to events_path, data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                    | #{navigation_item.title.upcase}
+              - elsif navigation_item.code == 'networks_and_partners'
+                li
+                  = link_to networks_path, data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                    | #{navigation_item.title.upcase}
+              - elsif navigation_item.code == 'contacts'
+                li
+                  = link_to contacts_path, data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                    | #{navigation_item.title.upcase}
+        /! Privacy
+        .col-lg-2.footer_col.clearfix
+          div
+            .footer_title Conferences
+            ul.footer_list
+              li
+                = link_to admin_path
+                  | Admin
+              li
+                a href="https://rhknowledge.ui.ac.id/id/conferences" Conferences
+  .copyright
+    .container
+      .row
+        .col
+          .copyright_content.d-flex.flex-md-row.flex-column.align-items-md-center.align-items-start.justify-content-start
+            .cr
+              /! Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+              | Copyright © 2021
+              | &nbsp; RH KNOWLEDGE
+
+              /! Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+            .cr_right.ml-md-auto
+              .footer_phone
+                span.cr_title> phone:
+                | 0856-9342-3757
+              .footer_social
+                span.cr_social_title follow us
+                ul
+                  li
+                    a href="https://www.facebook.com/Knowledge-Hub-for-Reproductive-Health-101856528156413/" target="_blank"
+                      i.fab.fa-facebook aria-hidden="true"
+                  li
+                    a href="https://www.instagram.com/knowledgehubrh/" target="_blank"
+                      i.fab.fa-instagram aria-hidden="true"
+                  li
+                    a href="https://twitter.com/KnowledgeHubRH" target="_blank"
+                      i.fab.fa-twitter aria-hidden="true"

@@ -1,0 +1,41 @@
+en:
+  events:
+    title: 'Upcoming Events & Key Dates'
+    description: 'All dates celebrated annually on a national and international scale'
+  network:
+    title: 'Networks and Partner'
+  web:
+    nav:
+      abouts: 'Abouts'
+      events: 'Event & Key Date Updates'
+      contacts: 'Contact'
+  contact:
+    title: 'Get in Touch'
+    detail: 'Contact Detail'
+    form:
+      name: 'Name'
+      email: 'Email'
+      message: 'Message'
+      button: 'Send Message'
+  views:
+    pagination:
+      first: 'First'
+      last: 'Last'
+      next: 'Next'
+      previous: 'Previous'
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries: "Show %{count} %{entry_name}"
+      more_pages:
+        display_entries: "Showing %{first} - %{last} %{entry_name} of %{total}"
+  errors:
+    messages:
+      mini_magick_processing_error: "Failed MiniMagick %{e}"
+  devise:
+    failure:
+      user:
+        not_found_in_database: 'Email and Password are not Valid'
+        invalid: 'Email and Password are not Valid'
+        unauthenticated: 'Must Logged In'
+        signed_in: 'Berhasil Login'

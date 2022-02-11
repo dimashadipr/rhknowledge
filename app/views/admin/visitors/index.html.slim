@@ -1,0 +1,41 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Visitors
+
+.content
+  .container-fluid
+    .row
+      .col-lg-4.col-6
+        .small-box.bg-info
+          .inner
+            h3 = @ahoy_visits.size
+            p Visitor
+          .icon
+            i.ion.ion-bag
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @visitors, entry_name: 'visitors'
+        .card-tools
+          = paginate @visitors, theme: :admin
+
+      .card-body.p-0
+        table.table#myTable
+          thead
+            tr
+              th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer;width: 30%" ID
+              th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer" Origin
+              th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer" 
+              th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer" Latest Visited At
+          tbody
+            - @visitors.each do |visitor|
+              = render 'row', visitor: visitor
+              
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @visitors, entry_name: 'visitors'
+        .float-right
+          = paginate @visitors, theme: :admin

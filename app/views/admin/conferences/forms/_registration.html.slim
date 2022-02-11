@@ -1,0 +1,14 @@
+- conference_registration = @conference.conference_registration
+- conference_registration = ConferenceRegistration.new if conference_registration.blank?
+
+.row
+  = f.hidden_field :conference_registration_id, name: "conference[conference_registration][id]", value: conference_registration.id
+  .col-md-6    
+    .form-group
+      label Registration Start Time *
+      = f.datetime_field :conference_registration_start_time, name: "conference[conference_registration][start_time]", class: 'network-name form-control', required: true, value: conference_registration.start_time&.strftime("%FT%T")
+
+  .col-md-6    
+    .form-group
+      label Registration End Time *
+      = f.datetime_field :conference_registration_end_time, name: "conference[conference_registration][end_time]", class: 'network-name form-control', required: true, value: conference_registration.end_time&.strftime("%FT%T")

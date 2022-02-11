@@ -1,0 +1,18 @@
+.card
+  .card-header
+    h3.card-title Latest Articles / Resources
+  .card-body.p-0
+    ul.products-list.product-list-in-card.pl-2.pr-2
+      - @resources.take(5).each do |resource|
+        li.item
+          .product-img
+            - if resource.page_content&.resource_detail&.image.present?
+              = image_tag(resource.page_content&.resource_detail&.image&.thumb&.url,  class: 'img-fluid')
+          .product-info
+            a.product-title
+              | #{resource.try(:tr, :title)}
+              span.badge.badge-info.float-right = date_format(resource.updated_at, 'short')
+            span.product-description = truncate(strip_tags(resource.content)&.html_safe, length: 150)
+  .card-footer.clearfix
+    a.btn.btn-sm.btn-info.float-left href="#{new_admin_resource_path}" Create New Resources
+    a.btn.btn-sm.btn-secondary.float-right href="#{admin_resources_path}" View All Resources

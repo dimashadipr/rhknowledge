@@ -1,0 +1,6 @@
+.card
+  .card-body
+    .form-group
+      label Instagram Post URL
+      = f.text_field :instagram_url, class: 'form-control', name: 'homepage[instagram_url]', value: @homepage.instagram_url
+      small.form-text.text-muted Ex: https://www.instagram.com/p/CBzftCIB0St/

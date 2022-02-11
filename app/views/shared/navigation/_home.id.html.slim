@@ -1,0 +1,70 @@
+header.header
+  .header_container
+    .row
+      .col
+        #menu_area.menu-area.d-flex.flex-row.align-items-center.justify-content
+          nav.navbar.navbar-light.navbar-expand-lg.mainmenu
+            button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button"
+              span.navbar-toggler-icon
+            a.navbar-brand.mx-auto.d-block href="/#{locale}"
+              = image_tag 'logo-header.png', class: 'logo_image logo-header'
+            #navbarSupportedContent.collapse.navbar-collapse.justify-content-md-center
+              ul.navbar-nav.text-center.align-middle
+                - navigation_items.each do |navigation_item|
+                  - if navigation_item.code == 'about'
+                    li
+                      = link_to abouts_path, data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                        | #{navigation_item.title.upcase}
+                  - elsif navigation_item.code == 'capacity_building'
+                    li.dropdown
+                      a#navbarDropdown.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" data-toggle-second="tooltip" data-placement="top" title="#{navigation_item.tooltip}" KEGIATAN
+                      ul.dropdown-menu aria-labelledby="navbarDropdown"
+                        li
+                         a PENGEMBANGAN KAPASITAS
+                         a href="https://rhknowledge.ui.ac.id/id/events" EVENTS
+                  - elsif navigation_item.code == 'trending_topic'
+                    li.dropdown
+                      a#navbarDropdown.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" data-toggle-second="tooltip" data-placement="top" title="#{navigation_item.tooltip}" KOMUNIKASI
+                      ul.dropdown-menu aria-labelledby="navbarDropdown"
+                        li
+                         a href="https://rhknowledge.ui.ac.id/id/articles" ARTIKEL
+                         a href="https://rhknowledge.ui.ac.id/id/news" BERITA ACARA
+                  - elsif navigation_item.code == 'networks_and_partners'
+                    li
+                      a href="#network" JEJARING
+                  - elsif navigation_item.code == 'contacts'
+                    li
+                      = link_to contacts_path, data: { toggle: 'tooltip', placement: 'top' }, title: navigation_item.tooltip
+                        | #{navigation_item.title.upcase}
+                  -else
+                    - if navigation_item.dropdown?
+                      = render 'shared/navigation/item_dropdown', navigation_item: navigation_item
+                      
+                li
+                  a href="#kalender" KALENDER
+
+                li.dropdown
+                  a#navbarDropdown.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button"
+                    - class_css = 'id'
+                    - if locale == :en
+                      - class_css = 'us'
+                    span.flag-icon class="flag-icon-#{class_css}"
+                  ul.dropdown-menu aria-labelledby="navbarDropdown"
+                    li
+                      = link_to set_locale_path(:id), data: { turbolinks: false }
+                        span.flag-icon.flag-icon-id
+                        | &nbsp;
+                        | Indonesia
+                    li
+                      = link_to set_locale_path(:en), data: { turbolinks: false }
+                        span.flag-icon.flag-icon-us
+                        | &nbsp;
+                        | English
+            .header_content_right.ml-auto.text-right
+              .header_search
+                .search_button data-toggle="modal" data-target="#searchModal"
+                  i.fa.fa-search aria-hidden="true"
+
+              .user
+                = link_to admin_path
+                  i.fa.fa-user aria-hidden="true"

@@ -1,0 +1,72 @@
+= content_for :js
+  javascript:
+
+    $('#conferences_conference_participant_id').on('change', function(){
+      var $selected = $(this).find(':selected');
+      var abstract_needed = $selected.data('abstract-needed');
+      if (!abstract_needed) {
+        $('#conferences_conference_topic_id').prop('required', false);
+        $('#conferences_conference_topic_id').parent().addClass('d-none');
+
+        $('#conferences_abstract').prop('required', false);
+        $('#conferences_abstract').parent().addClass('d-none');
+        $('#conferences_abstract').val('');
+
+        $('#conferences_scholarship').prop('checked', false);
+        $('#conferences_scholarship').parents('.register_col').addClass('d-none');
+      } else {
+        $('#conferences_conference_topic_id').prop('required', true);
+        $('#conferences_conference_topic_id').parent().removeClass('d-none');
+
+        $('#conferences_abstract').prop('required', true);
+        $('#conferences_abstract').parent().removeClass('d-none');
+
+        $('#conferences_scholarship').parents('.register_col').removeClass('d-none');
+      }
+    });
+
+    $(document).on('change', '#conferences_same', function(){
+      if (this.checked) {
+        $('#conferences_whatsapp').val($('#conferences_phone').val());
+      } else {
+        $('#conferences_whatsapp').val('');
+      }
+    });
+
+    $('#conferences_phone').on('keyup', function(){
+      if ($('#conferences_same').is(':checked')) {
+        $('#conferences_whatsapp').val($(this).val());
+      }
+    });
+
+    $(document).on('change', '#conferences_abstract', function(){
+      var allowedSize = 5 * 1024 * 100;
+      if (this.files && this.files[0]) {
+        console.log(this.files[0].size);
+        console.log(allowedSize);
+        if (this.files[0].size > allowedSize) {
+          alert('Ukuran file harus dibawah 500KB');
+          this.value = '';
+        }
+      }
+    });
+
+    function validCaptcha() {
+      $('#btn-submit').prop('disabled', false);
+      $('#btn-submit').css('background', '#834CAA')
+    }
+
+    function expiredCaptcha() {
+      $('#btn-submit').prop('disabled', true);
+      $('#btn-submit').css('background', '#aaaaab')
+    }
+
+    function validCaptchaRegistration() {
+      $('#btn-registration').prop('disabled', false);
+      $('#btn-registration').css('background', '#834CAA')
+    }
+
+    function expiredCaptchaRegistration() {
+      $('#btn-registration').prop('disabled', true);
+      $('#btn-registration').css('background', '#aaaaab')
+    }

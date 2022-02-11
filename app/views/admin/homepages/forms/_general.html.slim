@@ -1,0 +1,8 @@
+.card
+  .card-body
+    .form-group
+      label Title
+      = f.text_field :title, class: 'form-control', name: 'homepage[title]', value: @homepage.title
+    .form-group
+      label Description
+      = text_area_tag 'homepage[description]', @homepage.description, class: 'form-control'

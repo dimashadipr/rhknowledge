@@ -1,0 +1,45 @@
+doctype html
+html lang="en"
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content=("Knowledge Hub of Reproductive Health for Indonesia") name="description"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="mncQmMMIGajeKjzckerNBdlUMyCfVf26Cgu-RUsgB6U" name="google-site-verification"
+
+    = favicon_link_tag 'favicon.ico'
+
+    title Knowledge Hub of Reproductive Health for Indonesia
+
+    link as="font" crossorigin="anonymous" href="#{asset_path('fa-solid-900.woff2')}" rel="preload" type="font/woff2"
+    link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /
+    link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" /
+    link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet" /
+
+    link as="font" crossorigin="anonymous" href="#{asset_path('fa-brands-400.woff2')}" rel="preload" type="font/woff2"
+    script src="https://www.w3schools.com/lib/w3.js" 
+    
+    
+    
+    = stylesheet_link_tag 'lingua', media: 'all', 'data-turbolinks-track' => 'reload'
+    = csrf_meta_tags
+    - if Rails.env == 'production'
+      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93570310-2"></script>
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+      = javascript_include_tag 'g_analytic', 'data-turbolinks-track' => 'reload'
+
+  body
+    .super_container
+      = render 'shared/navigation/home'
+
+      = yield
+
+      = render 'shared/modal_search'
+
+      = render 'shared/footer/home'
+
+    = javascript_include_tag 'lingua', 'data-turbolinks-track' => 'reload'
+
+    = yield :js
+

@@ -1,0 +1,68 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Mailers
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'navigation')
+            = link_to new_admin_mailer_path, class: 'btn btn-primary btn-flat'
+              | New Email
+
+.content
+  .container-fluid
+    .row
+      .col-md-4
+        .card
+          .card-body
+            dl.row
+              dt.col-md-4 Subject
+              dd.col-md-8 = @mailer.subject
+              dt.col-md-4 Created By
+              dd.col-md-8 = @mailer.user.name
+              dt.col-md-4 Submitted Date
+              dd.col-md-8 = date_format(@mailer.created_at, 'long')
+              dt.col-md-4 Status
+              dd.col-md-8
+                span.badge class="#{mailer_status(@mailer.status)}" = @mailer.status.humanize
+              dt.col-md-4 Recipients
+              dd.col-md-8
+                - grouped = @mailer.mailer_recipients.group_by{ |r| r.status}
+                table.table
+                  - grouped.each do |status, list|
+                    tr
+                      td
+                        span.badge class="#{mailer_status(status)}" = status.humanize
+                      td = list.size
+
+            .row
+              .col-md-12
+                p
+                  strong Content :
+              .col-md-12
+                .card
+                  .card-body
+                    = @mailer.content.html_safe
+
+      .col-md-8
+        .card
+          .card-header
+            .float-left
+              = page_entries_info @recipients, entry_name: 'recipient'
+            .float-right
+              = paginate @recipients, theme: :admin
+
+          .card-body.table-responsive
+            table.table.table-striped
+              thead
+                tr
+                  th Recipient
+                  th Status
+                  th Last Updated
+              tbody
+                - @recipients.each do |recipient|
+                  tr
+                    td = recipient.email
+                    td
+                      span.badge class="#{mailer_status(recipient.status)}" = recipient.status.humanize
+                    td = date_format(recipient.updated_at, 'long')

@@ -1,0 +1,14 @@
+- criteria = ParticipantFileReview::ABSTRACT_CRITERIA
+- criteria.each_with_index do |criterion, index|
+  = f.hidden_field :criteria, value: criterion[:key], name: "score[#{index}][criterion]"
+  .row.mt-2
+    .col-md-8
+      label = criterion[:key]
+      br
+      small.text-helper.helper
+        | #{criterion[:min_score]} = #{criterion[:min_desc]}
+      br
+      small.text-helper.helper
+        | #{criterion[:max_score]} = #{criterion[:max_desc]}
+    .col-md-4
+      = f.number_field :score, class: 'form-control', min: criterion[:min_score], max: criterion[:max_score], required: true, name: "score[#{index}][score]"

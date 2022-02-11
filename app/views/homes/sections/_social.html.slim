@@ -1,0 +1,26 @@
+br/
+br/
+.events
+  .container
+    .row.justify-content-md-center
+      .col-md-3
+        h2.text_primary style="text-align: center;" Media Sosial
+    .row.justify-content-md-center
+      .col-md-4
+        .card
+          .card-body 
+            .fb-page data-adapt-container-width="true" data-height="" data-hide-cover="false" data-href="https://www.facebook.com/Knowledge-Hub-for-Reproductive-Health-101856528156413/" data-show-facepile="false" data-small-header="true" data-tabs="timeline" data-width=""
+              blockquote.fb-xfbml-parse-ignore cite="https://www.facebook.com/Knowledge-Hub-for-Reproductive-Health-101856528156413/"
+                a href="https://www.facebook.com/Knowledge-Hub-for-Reproductive-Health-101856528156413/"
+      .col-md-4
+        .card
+          .card-body style="height: 540px"
+            a.twitter-timeline data-height="348" data-width="540" href="https://twitter.com/KnowledgeHubRH?ref_src=twsrc%5Etfw"  Tweets by KnowledgeHubRH
+
+      - if @resource.present?
+        .col-md-4
+          = @resource&.html&.html_safe
+
+
+#fb-root
+br/

@@ -1,0 +1,64 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Visitors
+
+.content
+  .container-fluid
+    .row
+      .col-md-3
+        - latest_visit = @ahoy_visits.first
+        .card.card-primary.card-outline
+          .card-header
+            h3.card-title = @visitor_token
+          .card-body
+            strong
+              i.fas.fa-map-marker.mr-1
+              | Origin
+            p.text-muted
+              = latest_visit.origin
+            hr
+            strong
+              i.fas.fa-map-marker.mr-1
+              | Technology
+            p.text-muted
+              = latest_visit.technology
+      .col-md-9
+        .card.card-primary.card-outline
+          .card-header
+            h3.card-title Visitor History
+          .card-body
+            table.table.table-striped#myTable
+              thead
+                tr
+                  th token
+                  th IP
+                  th Technology
+                  th Origin
+                  th Started At
+              tbody
+                - @ahoy_visits.each do |visit|
+                  tr
+                    td = visit.visit_token
+                    td = visit.ip
+                    td = visit.technology
+                    td = visit.origin
+                    td = date_format(visit.started_at, 'long')
+
+        .card.card-primary.card-outline
+          .card-header
+            h3.card-title Activity History
+          .card-body
+            table.table.table-striped#myTable
+              thead
+                tr
+                  th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(1)')" style="cursor:pointer" Name
+                  th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(2)')" style="cursor:pointer" Time
+                  th onclick="w3.sortHTML('#myTable', '.item', 'td:nth-child(3)')" style="cursor:pointer" Properties
+              tbody
+                - @ahoy_events.each do |event|
+                  tr.item
+                    td = event.name
+                    td = date_format(event.time, 'long')
+                    td = event.properties

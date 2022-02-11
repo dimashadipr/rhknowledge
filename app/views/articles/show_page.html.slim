@@ -1,0 +1,26 @@
+.course
+  .course_top
+  .container
+    .row.row-lg-eq-height
+      /! Panels
+      .col-lg-9
+        /! Description
+        .tab_panel.description.active
+          .panel_title = @resource_page.title
+          .panel_text
+            = @resource_page.content&.html_safe
+          /! FAQs
+          - if @resource_page.page_files.present?
+            .faqs
+              .panel_title Files
+              - @resource_page.page_files.each do |page_file|
+                .files
+                  i.far.fa-file.article-files
+                  a target="_blank" href="#{page_file.resource_file.file.url}"
+                    | #{ clear_filename(File.basename(page_file.resource_file.file.path)) }
+      - if @resource_page.categories.present?
+        .col-lg-3
+          = render 'widget'
+
+
+= render 'articles/show_js'

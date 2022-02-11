@@ -1,0 +1,67 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Events
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'event')
+            = link_to new_admin_event_path, class: 'btn btn-primary btn-flat'
+              | New Event
+
+.content
+  .container-fluid
+    .row
+      .col-md-7
+        .card
+          .card-header
+            .card-title
+              = page_entries_info @events, entry_name: 'event'
+            .card-tools
+              = paginate @events, theme: :admin
+
+          .card-body.p-0
+            table.table
+              thead
+                tr
+                  th Name
+                  th Date
+                  th Description
+                  th style=("width: 10%")  Action
+              tbody
+                - @events.each do |event|
+                  = render 'row', event: event
+
+          .card-footer.clearfix
+            .float-left
+              = page_entries_info @events, entry_name: 'event'
+            .float-right
+              = paginate @events, theme: :admin
+
+      .col-md-7
+        .card
+          .card-header
+            .card-title
+              = page_entries_info @recurring_events, entry_name: 'Recurring Events'
+            .card-tools
+              = paginate @recurring_events, theme: :admin
+
+          .card-body.p-0
+            table.table
+              thead
+                tr
+                  th Name
+                  th Category
+                  th
+                  th style=("width: 10%")  Action
+              tbody
+                - @recurring_events.each do |recurring_event|
+                  = render 'recurring_row', recurring_event: recurring_event
+
+          .card-footer.clearfix
+            .float-left
+              = page_entries_info @recurring_events, entry_name: 'Recurring Events'
+            .float-right
+              = paginate @recurring_events, theme: :admin
+
+= render 'admin/events/js/index'

@@ -1,0 +1,48 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Dashboard
+      .col-sm-6
+        .float-right
+          button.btn.btn-primary.btn-flat type="submit" form="form-home-manage" Save
+
+.content
+  .container-fluid
+    = form_with url: admin_homepage_path(@homepage), scope: 'homepage',  method: 'patch', id: 'form-home-manage', local: true do |f|
+      .new-element.d-none
+        = render 'admin/homepages/forms/new_banner', f: f
+        = render 'admin/homepages/forms/new_link', f: f
+
+      .card.card-outline.card-primary
+        .card-header
+          h3.card-title Welcome Section
+          .card-tools
+            button.btn.btn-tool type="button" data-card-widget="collapse"
+              i.fas.fa-minus
+        .card-body
+          .row
+            .col-md-4
+              = render 'admin/homepages/forms/general', f: f
+            .col-md-8
+              = render 'admin/homepages/forms/banners', f: f
+
+      .card.card-outline.card-success
+        .card-header
+          h3.card-title Quick Links
+          .card-tools
+            button.btn.btn-tool type="button" data-card-widget="collapse"
+              i.fas.fa-minus
+        .card-body
+          = render 'admin/homepages/forms/links', f: f
+
+      .card.card-outline.card-danger
+        .card-header
+          h3.card-title Social
+          .card-tools
+            button.btn.btn-tool type="button" data-card-widget="collapse"
+              i.fas.fa-minus
+        .card-body
+          = render 'admin/homepages/forms/social', f: f
+
+= render 'admin/homepages/js/index'

@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+
+worksheet = 'Participant Report'.gsub(/[^a-z0-9\s]/i, '')
+
+worksheet = (worksheet[0..29]).to_s if worksheet.length > 30
+
+wb.add_worksheet(name: worksheet) do |sheet|
+  headers = ['Name', 'Email', 'Topic', 'Abstract File', 'Reviewer', 'Score', 'Review Date']
+
+  sheet.add_row headers
+
+  @participants.each do |participant|
+    latest_abstract_file = participant.latest_abstract_file
+
+    if latest_abstract_file.blank?
+      row = [
+        participant.full_name,
+        participant.email,
+        participant.conference_topic&.name || '-',
+        participant.abstract&.file&.filename,
+        '-',
+        '-',
+        '-'
+      ]
+      sheet.add_row row
+      next
+    end
+
+    reviewers = latest_abstract_file.participant_file_reviews
+    reviewers.each do |reviewer|
+      row = [
+        participant.full_name,
+        participant.email,
+        participant.conference_topic&.name || '-',
+        latest_abstract_file.file.file.filename,
+        reviewer&.user&.name,
+        reviewer&.score || '-',
+        date_format(reviewer.updated_at, 'long')
+      ]
+      sheet.add_row row
+    end
+  end
+end

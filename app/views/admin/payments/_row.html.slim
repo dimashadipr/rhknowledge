@@ -1,0 +1,19 @@
+- participant = payment.participant
+tr
+  td
+    | #{participant.full_name}
+    br
+    span.badge.badge-info #{participant.institution}
+  td
+    span.badge.badge-secondary.mr-1 = payment.file.identifier
+    = link_to payment.file.url, target: '_blank', class: 'mr-1', data: { toggle: 'tooltip', placement: 'top', 'title': 'Download Abstract File' }
+      i.fas.fa-file-download
+  td
+    span.badge class="#{abstract_status(payment.status)}" = payment.status.humanize
+  td = date_format(payment.created_at, 'long')
+  td
+    - if payment.proceed? && can?(:update, 'payment')
+      = link_to edit_admin_payment_path(id: payment.id, status: 'accepted'), data: { remote: true }
+        button.btn.btn-flat.btn-success.mr-2 Accept
+      = link_to edit_admin_payment_path(id: payment.id, status: 'rejected'), data: { remote: true }
+        button.btn.btn-flat.btn-danger Reject

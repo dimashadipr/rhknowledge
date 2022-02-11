@@ -1,0 +1,668 @@
+/* .carousel .carousel-item {
+  height: 350px;
+}
+
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 350px;
+} */
+.carousel .carousel-inner {
+  height: 600px
+}
+
+.carousel-inner .carousel-item img {
+  min-height: 200px;
+  //prevent it from stretch in screen size < than 768px
+  object-fit: cover
+}
+
+.event_col {
+  padding-top: 20px;
+}
+
+[type=radio] {
+  display: none;
+}
+
+#slider {
+  height: 400px;
+  position: relative;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+#slider label {
+  margin: auto;
+  width: 60%;
+  height: 100%;
+  border-radius: 4px;
+  position: absolute;
+  left: 0; right: 0;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+#s1:checked ~ #slide4, #s2:checked ~ #slide5,
+#s3:checked ~ #slide1, #s4:checked ~ #slide2,
+#s5:checked ~ #slide3 {
+  transform: translate3d(-30%,0,-200px);
+}
+
+#s1:checked ~ #slide5, #s2:checked ~ #slide1,
+#s3:checked ~ #slide2, #s4:checked ~ #slide3,
+#s5:checked ~ #slide4 {
+  transform: translate3d(-15%,0,-100px);
+}
+
+#s1:checked ~ #slide1, #s2:checked ~ #slide2,
+#s3:checked ~ #slide3, #s4:checked ~ #slide4,
+#s5:checked ~ #slide5 {
+  transform: translate3d(0,0,0);
+}
+
+#s1:checked ~ #slide2, #s2:checked ~ #slide3,
+#s3:checked ~ #slide4, #s4:checked ~ #slide5,
+#s5:checked ~ #slide1 {
+  transform: translate3d(15%,0,-100px);
+}
+
+#s1:checked ~ #slide3, #s2:checked ~ #slide4,
+#s3:checked ~ #slide5, #s4:checked ~ #slide1,
+#s5:checked ~ #slide2 {
+  transform: translate3d(30%,0,-200px);
+}
+
+.article-files {
+  width: 40px;
+  height: 40px;
+  color: #FF6700;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40px;
+  border: 1px solid #EBEBEB;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+
+.event-table {
+  width: 100%;
+  min-height: 233px;
+}
+
+.menu-area {
+}
+
+.dropdown-menu {
+  padding: 0;
+  margin: 0;
+  border: 0 solid transition!important;
+  border: 0 solid rgba(0,0,0,.15);
+  border-radius: 0;
+  -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
+
+.mainmenu a, .navbar-default .navbar-nav > li > a, .mainmenu ul li a , .navbar-expand-lg .navbar-nav .nav-link {
+  color: rgba(0,0,0,0.45);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 15px;
+  display: block !important;
+}
+
+.mainmenu .active a,.mainmenu .active a:focus,.mainmenu .active a:hover,.mainmenu li a:hover,.mainmenu li a:focus ,.navbar-default .navbar-nav>.show>a, .navbar-default .navbar-nav>.show>a:focus, .navbar-default .navbar-nav>.show>a:hover {
+  color: #824CAB;
+  outline: 0;
+}
+/*==========Sub Menu=v==========*/
+.mainmenu .collapse ul > li:hover > a {
+}
+
+.mainmenu .collapse ul ul > li:hover > a, .navbar-default .navbar-nav .show .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .show .dropdown-menu > li > a:hover {
+}
+
+.mainmenu .collapse ul ul ul > li:hover > a {
+}
+
+.mainmenu .collapse ul ul, .mainmenu .collapse ul ul.dropdown-menu {
+}
+
+.mainmenu .collapse ul ul ul, .mainmenu .collapse ul ul ul.dropdown-menu {
+}
+
+.mainmenu .collapse ul ul ul ul, .mainmenu .collapse ul ul ul ul.dropdown-menu {
+}
+
+/******************************Drop-down menu work on hover**********************************/
+.mainmenu {
+  background: none;
+  border: 0 solid;
+  margin: 0;
+  padding: 0;
+  min-height: 20px;
+  width: 100%;
+}
+
+@media(max-width:768px) {
+  .carousel .carousel-inner {
+    //prevent it from adding a white space between carousel and container elements
+    height: auto
+  }
+
+  .event-table{
+    min-height: 100px;
+    padding-bottom: 50px;
+  }
+
+  .logo_image {
+		max-width: 90px;
+	}
+}
+
+@media only screen and (min-width: 767px) {
+  .mainmenu .collapse ul li:hover> ul {
+    display: block;
+  }
+
+  .mainmenu .collapse ul ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 250px;
+    display: none;
+  }
+/*******/
+  .mainmenu .collapse ul ul li {
+    position: relative;
+  }
+
+  .mainmenu .collapse ul ul li:hover> ul {
+    display: block;
+  }
+
+  .mainmenu .collapse ul ul ul {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    min-width: 250px;
+    display: none;
+  }
+/*******/
+  .mainmenu .collapse ul ul ul li {
+    position: relative;
+  }
+
+  .mainmenu .collapse ul ul ul li:hover ul {
+    display: block;
+  }
+
+  .mainmenu .collapse ul ul ul ul {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    min-width: 250px;
+    display: none;
+    z-index: 1;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .navbar-nav .show .dropdown-menu .dropdown-menu > li > a {
+    padding: 16px 15px 16px 35px;
+  }
+
+  .navbar-nav .show .dropdown-menu .dropdown-menu .dropdown-menu > li > a {
+    padding: 16px 15px 16px 45px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .navbar-brand.mx-auto.d-block {
+    padding-right: 65px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .tab_panel.description.active h1 {
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .tab_panel.description.active h5 {
+    text-align: center;
+  }
+}
+
+
+@media only screen and (max-width: 966px) {
+  .tab_panel.description.active h5 {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .tab_panel.description.active h5 {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .tab_panel.description.active hr {
+    padding-left: 150px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .midwifetraining {
+    padding-left: 90px;
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .midwifetraining2 {
+    padding-left: 50px;
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .midwifetraining2 {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .midwifetraining {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .unfpa {
+    padding-left: 370px;
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .icifpra {
+    padding-left: 370px;
+    font-size: 40px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .icifpra {
+    padding-left: 90px;
+    font-size: 20px;
+    padding-top: 70px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .imgbanner {
+    padding-top: 15px;
+    width: 390px;
+    height: 190px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .imgbanner2 {
+    padding-top: 15px;
+    width: 390px;
+    height: 250px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .imgbanner4 {
+    padding-top: 15px;
+    width: 390px;
+    height: 250px;
+    padding-bottom: 30px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .imgbanner3 {
+    padding-top: 15px;
+    width: 100%;
+    height: 100;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+.imgbanner4 {
+    padding-top: 15px;
+    width: 100%;
+    height: 450px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .descriptions2 {
+    padding-top: 300px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .eventdesc {
+    padding-top: 50px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .eventdesc2 {
+    padding-top: 150px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .eventdesc2 {
+    padding-top: 100px;
+  }
+}
+
+
+@media only screen and (max-width: 966px) {
+  .eventdesc {
+    padding-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .descriptions2 {
+    padding-top: 65px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .descriptions3 {
+    padding-top: 130px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .descriptions3 {
+    padding-top: 90px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .h5icifpra {
+    color: white; 
+    background-color: #f8971e; 
+    width: 70%;
+    padding-bottom:5px; 
+    text-align:center; 
+    padding-top: 12px;
+  }
+}
+
+.btndownload{
+  background-color: #FF9600;
+}
+
+.mw2{
+font-family: Montserrat;
+color: black;
+font-size: 2.25rem;
+font-style: normal;
+font-weight: 600;
+line-height: 23px;
+letter-spacing: 0em;
+padding-left: 30px;
+}
+
+.cp2{
+font-family: Montserrat;
+font-style: normal;
+font-weight: bold;
+font-size: 14.4682px;
+padding-left: 10px;
+color: #402F2F;
+}
+
+.btndownload:hover {
+  background-color: 	#ffc107;
+}
+
+@media only screen and (max-width: 966px) {
+  .h5icifpra {
+    color: white; 
+    background-color: #f8971e; 
+    width: 100%; 
+    padding:5px; 
+    text-align:center;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .iframe {
+    
+    padding-top: 250px;
+    padding-left: 15px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .iframe {
+    height: 700px;
+    width: 1500px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .icipyt {
+    width: 110%; 
+    height: 90%;
+    padding-top: 20px;
+    padding-left: 100px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .icipimg {
+    padding-top: 80px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .icipimg2 {
+    width: 110%;
+    height: 90%;
+    padding-top: 50px;
+    padding-right: 100px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .keynote {
+    padding-top: 130px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .keynote2 {
+    padding-top: 100px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .textspeaker {
+    padding-top: 65px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .deschomepage {
+    margin-top: 620px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .textspeaker {
+    padding-top: 15px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .textspeaker2 {
+    padding-top: 15px;
+    padding-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .img-fluid.mx-auto.d-block {
+    width: 95%;
+    height: 95%;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .img-fluid.mx-auto.d-block {
+    width: 50%;
+    height: 100%;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .keynote3 {
+    padding-top: 80px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .unfpa {
+    padding-left: 90px;
+    font-size: 25px;
+    padding-bottom: 21px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .dokumen-pelatihan {
+    padding-left: 100px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .footer_list {
+    padding-left: 10px;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .event_title a {
+    font-size: 15px;
+  }
+}
+
+.register_col [type="first_name"]::placeholder {
+  text-align: center;
+}
+
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+#more {display: none;}
+
+.gallery-block.grid-gallery a:hover{
+  opacity: 0.8;
+}
+
+.gallery-block.grid-gallery .item img{
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.4s;
+}
+
+@media (min-width: 576px) {
+
+  .gallery-block.grid-gallery .scale-on-hover:hover{
+    transform: scale(1.05);
+    box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.gallery-block.grid-gallery .item{
+  margin-bottom: 20px;
+}
+
+@media only screen and (min-width: 966px) {
+  .deschome {
+    padding-top: 70px;
+    text-align: left;
+  }
+}
+
+@media only screen and (max-width: 966px) {
+  .deschome {
+    padding-top: 30px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 966px) {
+  .videohome {
+    height: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-1 {
+    padding-left: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-4 {
+    padding-left: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-7 {
+    padding-left: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-3 {
+    padding-right: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-6 {
+    padding-right: 200px;
+  }
+}
+
+@media only screen and (min-width: 966px) {
+  .foto-8 {
+    padding-right: 200px;
+  }
+}

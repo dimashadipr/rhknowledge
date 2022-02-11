@@ -1,0 +1,27 @@
+.card
+  .card-header.border-0
+    h3.card-title Latest Event
+  .card-body.p-0
+    .table-responsive
+      table.table.m-0
+        thead
+          tr
+            th Name
+            th Date
+            th
+        tbody
+          - @events.take(5).each do |event|
+            tr
+              td = event.title
+              td
+                - if event.all_day?
+                  span.badge.badge-info = date_format(event.start_date, 'short_with_day')
+                - else
+                  span.badge.badge-info.mr-2 = date_format(event.start_date, 'short_with_day')
+                  span -
+                  span.badge.badge-info.ml-2 = date_format(event.end_date, 'short_with_day')
+              td
+                span.badge class="#{event_status(event.status)}" = event.status.humanize
+  .card-footer.clearfix
+    a.btn.btn-sm.btn-info.float-left href="#{new_admin_event_path}" Create New Event
+    a.btn.btn-sm.btn-secondary.float-right href="#{admin_events_path}" View All Events

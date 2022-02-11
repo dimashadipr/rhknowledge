@@ -1,0 +1,35 @@
+.col-md-4.new-asset
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.asset-index Quick Link 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-asset href="javascript:void(0)"
+          i.fa.fa-trash
+          
+    .card-body
+      = f.hidden_field :conference_quick_link_id, name: "",
+        class: 'asset-id', value: nil
+      = f.hidden_field :conference_quick_link_deleted, name: "",
+        class: 'asset-deleted', value: false
+
+      .form-group
+        label Label *
+        = f.text_field :conference_quick_link_label, name: "", class: 'asset-name form-control', value: nil
+
+      .form-group
+        label Position *
+        = f.number_field :conference_quick_link_position, name: "", class: 'asset-position form-control', value: nil
+
+      .form-group
+        label Image *
+        .input-group
+          = f.file_field :image, name: "", class: 'custom-file-input asset-image', accept: 'image/*', value: nil
+          label.custom-file-label Image
+
+      .form-group
+        label File *
+        .input-group
+          = f.file_field :file, name: "", class: 'custom-file-input asset-file', accept: 'file/*', value: nil
+          label.custom-file-label File

@@ -1,0 +1,14 @@
+.form-group
+  label Label
+  = f.text_field :label, class: 'form-control'
+
+.form-group
+  label Description
+  = f.text_area :sublabel, class: 'form-control'
+
+.form-group
+  label Image
+  .input-group
+    .custom-file
+      = f.file_field :image, class: 'custom-file-input', required: !@banner.image.present?, accept: 'image/*'
+      label.custom-file-label Choose Image File

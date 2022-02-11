@@ -1,0 +1,45 @@
+button.btn.btn-sm.btn-flat.btn-success.add-link.mb-2 type="button"
+  i.fa.fa-plus-square.mr-2
+  | Add Quick Links
+.row#list-link
+  - page_links = @homepage.page_links
+  /- page_links = [@homepage.page_links.new] if page_links.blank?
+  - page_links.each_with_index do |page_link, index|
+    - page_link_detail = page_link&.link_detail
+    .col-md-4.card-links
+      .card.card-success.card-outline
+        .card-header
+          .card-title
+            span.link-index Link #{index+1}
+          .card-tools
+            - hide = page_links.size > 1 ? '' : 'd-none'
+            a.btn-btn-tool.btn-sm.text-danger.remove-link class="#{hide}" href="javascript:void(0)"
+              i.fa.fa-trash
+        .card-body
+          = f.hidden_field :page_banner_id, name: "homepage[page_links][#{index}][id]",
+            class: 'link-id', value: page_link.id
+          - position = page_link.position.blank? ? 1 : page_link.position
+          = f.hidden_field :deleted, name: "homepage[page_links][#{index}][deleted]",
+            class: 'link-deleted', value: false
+          = f.hidden_field :position, name: "homepage[page_links][#{index}][position]",
+            class: 'link-position', value: position
+
+          .form-group
+            label Page
+            = f.select :link, options_for_select(@link_options, page_link_detail&.page_id), {include_blank: 'Choose Page'},
+              class: 'form-control link-option select2',
+              id: "link-option-#{index}",
+              name: "homepage[page_links][#{index}][page_id]",
+              required: true
+          .row
+            .col-md-8
+              .form-group
+                label Image
+                .input-group
+                  .custom-file
+                    = f.file_field :image, name: "homepage[page_links][#{index}][image]",
+                    class: 'custom-file-input link-image', id: "homepage-page-links-#{index}", required: false, accept: 'image/*'
+                    label.custom-file-label Image
+            - if page_link_detail&.image.present?
+              .col-md-4
+                = image_tag(page_link_detail.image.preview&.url, class: 'img-fluid')

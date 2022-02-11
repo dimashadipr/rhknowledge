@@ -1,0 +1,36 @@
+.home.conference_banner#banners
+  /.home_background style=("background-image:url(#{image_path('conference_banner.png')})")
+  .home_background
+      #carouselExampleCaptions.carousel.slide data-ride="carousel"
+          ol.carousel-indicators
+            li.active data-slide-to="0" data-target="#carouselExampleCaptions"
+            li data-slide-to="1" data-target="#carouselExampleCaptions"
+            li data-slide-to="2" data-target="#carouselExampleCaptions"
+          .carousel-inner
+            .carousel-item.active
+              a href="#hasil"
+                img.img-fluid.d-none.d-md-block.dl-lg-block.d-xl-block src="#{image_path('conferences/desktop_banner.png')}"
+
+            .carousel-item
+              a href="#hasil"
+                img.img-fluid.d-none.d-md-block.dl-lg-block.d-xl-block src="#{image_path('conferences/banner_dekstop2.png')}"
+
+          a.carousel-control-prev data-slide="prev" href="#carouselExampleCaptions" role="button"
+            span.carousel-control-prev-icon aria-hidden="true"
+            span.sr-only Previous
+          a.carousel-control-next data-slide="next" href="#carouselExampleCaptions" role="button"
+            span.carousel-control-next-icon aria-hidden="true"
+            span.sr-only Next
+    
+
+script crossorigin="anonymous" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" 
+script crossorigin="anonymous" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" 
+script crossorigin="anonymous" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" 
+
+  /.home_content
+    .container
+      .row
+        .col.text-center
+          / h1.home_title style="color:#000" = t('banner.title')
+          /.home_button.trans_200
+            a href="#registration"  = t('banner.button')

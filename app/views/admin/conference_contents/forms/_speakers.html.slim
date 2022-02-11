@@ -1,0 +1,63 @@
+.card.card-success.card-outline
+  .card-header
+    .card-title
+      span.speaker-index Speakers
+
+  .card-body
+    button.btn.btn-sm.btn-flat.btn-success.add-speaker.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Speaker
+
+    #list-speaker.row
+      - conference_speakers = @conference.conference_speakers&.order(:position)
+      - conference_speakers = [ConferenceSpeaker.new] if conference_speakers.blank?
+
+      - conference_speakers.each_with_index do |conference_speaker, index|
+        .col-md-4.card-speaker
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.speaker-index Speaker #{index+1}
+
+              .card-tools
+                - hide = conference_speakers.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-speaker class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+
+            .card-body
+              - position = conference_speaker.position.blank? ? 1 : conference_speaker.position
+              = f.hidden_field :conference_speaker_id, name: "conference[conference_speakers][#{index}][id]",
+                class: 'speaker-id', value: conference_speaker.id
+              = f.hidden_field :conference_speaker_deleted, name: "conference[conference_speakers][#{index}][deleted]",
+                class: 'speaker-deleted', value: false
+              = f.hidden_field :conference_speaker_position, name: "conference[conference_speakers][#{index}][position]",
+                class: 'speaker-position', value: position
+
+              .form-group
+                label Name *
+                = f.text_field :conference_speaker_name, name: "conference[conference_speakers][#{index}][name]]", class: 'speaker-name form-control', required: true, value: conference_speaker.name
+
+              .form-group
+                label Title *
+                = f.text_field :conference_speaker_title, name: "conference[conference_speakers][#{index}][title]]", class: 'speaker-title form-control', required: true, value: conference_speaker.title
+
+              .form-group
+                label Group
+                = f.text_field :conference_speaker_group, name: "conference[conference_speakers][#{index}][group]]", class: 'speaker-group form-control', required: false, value: conference_speaker.group
+
+              .form-group
+                label Position on Conference
+                = f.text_field :conference_speaker_conference_position, name: "conference[conference_speakers][#{index}][conference_position]]", class: 'speaker-position-conference form-control', required: false, value: conference_speaker.conference_position
+
+              .form-group
+                label Image *
+                .input-group
+                  .custom-file
+                    - required = conference_speaker.image.present?
+
+                    = f.file_field :image, name: "conference[conference_speakers][#{index}][image]",
+                    class: 'custom-file-input banner-image', id:'conference-image', required: !required, accept: 'image/*', value: conference_speaker.image
+                    label.custom-file-label for="conference-image" Image
+
+              - if conference_speaker.image.present?
+                = image_tag(conference_speaker.image.preview.url, class: 'img-fluid')

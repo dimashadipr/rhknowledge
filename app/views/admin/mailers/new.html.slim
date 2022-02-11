@@ -1,0 +1,17 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Mailers
+
+.content
+  .container-fluid
+    .card
+      = form_with url: admin_mailers_path, local: true, scope: 'mailers', id: 'form-mailer', html: { onsubmit: "return confirm('Are you sure you wish to Send Email?');" } do |f|
+        .card-body
+          = render 'forms', f: f
+
+        .card-footer
+          = f.submit "Save", class: 'btn btn-flat btn-primary'
+
+= render 'admin/mailers/js/form'

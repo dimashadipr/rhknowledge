@@ -1,0 +1,48 @@
+nav.main-header.navbar.navbar-expand.navbar-dark
+  /! Left navbar links
+  ul.navbar-nav
+    li.nav-item
+      a.nav-link data-widget="pushmenu" href="#"
+        i.fas.fa-bars
+    li.nav-item.d-none.d-sm-inline-block
+      = link_to admin_path, class: 'nav-link'
+        | Dashboard
+    li.nav-item.d-none.d-sm-inline-block
+      a.nav-link href="/id" target="_blank"  Website
+    li.nav-item.dropdown
+      a.nav-link.dropdown-toggle href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        - class_css = 'id'
+        - if locale == :en
+          - class_css = 'us'
+        span.flag-icon class="flag-icon-#{class_css}"
+      .dropdown-menu aria-labelledby="navbarDropdown"
+        = link_to admin_set_locale_path(locale_cms: :id), class: 'dropdown-item', data: { turbolinks: false }
+          span.flag-icon.flag-icon-id
+          | &nbsp;
+          | Indonesia
+
+        = link_to admin_set_locale_path(locale_cms: :en), class: 'dropdown-item', data: { turbolinks: false }
+          span.flag-icon.flag-icon-us
+          | &nbsp;
+          | English
+    li.nav-item.dropdown
+      a.nav-link data-toggle="dropdown" href="#"
+        | #{current_user.name}
+      .dropdown-menu.dropdown-menu-lg.dropdown-menu-right
+        .dropdown-header
+          p
+            | #{current_user.name} -
+            | #{current_user.role.name}
+          small Member since 2020
+        .dropdown-divider
+        = link_to change_password_admin_users_path, class: 'dropdown-item'
+          i.fas.fa-key.mr-2
+          | Change Password
+        .dropdown-divider
+        = link_to destroy_user_session_path, title:"Sign Out", method: :delete, class: 'dropdown-item'
+          i.fas.fa-sign-out-alt.mr-2
+          | Log Out
+
+  /! Right navbar links
+  ul.navbar-nav.ml-auto
+    

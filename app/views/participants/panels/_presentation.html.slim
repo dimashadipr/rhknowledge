@@ -1,0 +1,29 @@
+.panel_title Presentasi
+.panel_text
+  .register style="background-color:#ffffff; padding-top:0px;"
+    .container
+      .row
+        /! Register Form
+        .col-lg-12
+          .register_form_container
+            .register_form_title.text_primary Unggah Dokumen Presentasi
+            - if @participant.presentation_file.present?
+              - presentation_file = @participant.presentation_file
+              table
+                tr
+                  td
+                    p Dokumen
+                  td.feature_text.p-3
+                    = link_to presentation_file.file.url, target: '_blank'
+                      = presentation_file.file.file.filename
+            - else
+              = form_with url: upload_presentation_conferences_path(slug: @slug), scope: 'presentation', method: 'post', id: 'form-upload-presentation', data: { remote: false } do |f|
+                .row.register_row
+                  .col-lg-12.register_col
+                    label Dokumen Presentasi
+                    br
+                    = f.file_field :file, class: 'form-input', required: true, placeholder: 'Upload Paper', accept: '.pdf,.jpg,.jpeg,.png,ppt,.pptx'
+                    br
+                    label Format File: .jpg, .pdf, .jpeg, .png, .ppt, .pptx
+                  .col
+                    button.form_button.trans_200#btn-paper type="submit" Submit

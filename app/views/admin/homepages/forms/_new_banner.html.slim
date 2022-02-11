@@ -1,0 +1,31 @@
+.col-md-6.new-banner
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.banner-index Banner 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-banner href="javascript:void(0)"
+          i.fa.fa-trash
+    .card-body
+      .row
+        .col-md-8
+          = f.hidden_field :page_banner_id, name: "",
+            class: 'banner-id', value: nil
+          = f.hidden_field :deleted, name: "",
+            class: 'banner-deleted', value: false
+          = f.hidden_field :position, name: "",
+            class: 'banner-position', value: 0
+
+        .form-group
+          label Url
+          = f.text_field :url, name: "",
+            class: 'form-control banner-url', value: nil
+
+          .form-group
+            label Image
+            .input-group
+              .custom-file
+                = f.file_field :image, name: "",
+                class: 'custom-file-input banner-image', id: "homepage-page-banners-", required: false, accept: 'image/*'
+                label.custom-file-label Image

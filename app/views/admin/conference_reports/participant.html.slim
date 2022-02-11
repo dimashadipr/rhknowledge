@@ -1,0 +1,41 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Participant Report
+      .col-sm-6
+        .float-right
+          = link_to participant_report_admin_conferences_path(format: :xlsx), class: 'btn btn-success btn-flat', download: "Participant Report - #{Date.today}.xlsx"
+            | Export Excel
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @participants, entry_name: 'participant'
+        .card-tools
+          = paginate @participants, theme: :admin
+
+      .card-body.p-0.table-responsive
+        table.table.table-striped
+          thead
+            tr
+              th Name
+              th Email
+              th Phone
+              th WhatsApp
+              th Institution
+              th Institution Phone
+              th Category
+              th Topic
+              th Register Date
+          tbody
+            - @participants.each_with_index do |participant|
+              = render 'admin/conference_reports/row/participant', participant: participant
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @participants, entry_name: 'participant'
+        .float-right
+          = paginate @participants, theme: :admin

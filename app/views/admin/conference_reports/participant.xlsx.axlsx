@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+wb = xlsx_package.workbook
+
+worksheet = 'Participant Report'.gsub(/[^a-z0-9\s]/i, '')
+
+worksheet = (worksheet[0..29]).to_s if worksheet.length > 30
+
+wb.add_worksheet(name: worksheet) do |sheet|
+  headers = ['Name', 'Email', 'Phone', 'WhatsApp', 'Institution', 'Institution Phone']
+  headers += ['Category', 'Topic', 'Register Date']
+
+  sheet.add_row headers
+
+  @participants.each do |participant|
+    row = [
+      participant.full_name,
+      participant.email,
+      participant.phone.to_s,
+      participant.whatsapp,
+      participant.institution,
+      participant.institution_phone,
+      participant&.conference_participant&.category,
+      participant&.conference_topic&.name,
+      date_format(participant.created_at)
+    ]
+
+    sheet.add_row row
+  end
+end

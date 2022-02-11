@@ -1,0 +1,40 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Networks
+      .col-sm-6
+        .float-right
+          - if can?(:create, 'network')
+            = link_to new_admin_network_path, class: 'btn btn-primary btn-flat'
+              | New Network Profile
+
+.content
+  .container-fluid
+    .card
+      .card-header
+        .card-title
+          = page_entries_info @networks, entry_name: 'network'
+        .card-tools
+          = paginate @networks, theme: :admin
+
+      .card-body.p-0
+        table.table
+          thead
+            tr
+              th style=("width: 5%")  #
+              th Name
+              th Url
+              th Description
+              th style=("width: 10%")  Action
+          tbody
+            - @networks.each do |network|
+              = render 'row', network: network
+
+      .card-footer.clearfix
+        .float-left
+          = page_entries_info @networks, entry_name: 'network'
+        .float-right
+          = paginate @networks, theme: :admin
+
+= render 'admin/networks/js/index'

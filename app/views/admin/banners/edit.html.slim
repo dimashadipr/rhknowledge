@@ -1,0 +1,23 @@
+.content-header
+  .container-fluid
+    .row.mb-2
+      .col-sm-6
+        h1.m-0.text-dark Networks
+      .col-sm-6
+        ol.breadcrumb.float-sm-right
+          li.breadcrumb-item
+            = link_to admin_networks_path
+              | Network
+          li.breadcrumb-item = @banner.label
+
+.content
+  .container-fluid
+    .card
+      = form_with model: @banner, url: admin_banner_path(@banner.id), local: true do |f|
+        .card-body
+          = render 'forms', f: f
+
+        .card-footer
+          = f.submit "Save", class: 'btn btn-flat btn-primary'
+
+= render 'admin/networks/js/form'

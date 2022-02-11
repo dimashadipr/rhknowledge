@@ -1,0 +1,26 @@
+.col-md-6.new-network
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.network-index Network -
+        span.title
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-network href="javascript:void(0)"
+          i.fa.fa-trash
+    .card-body
+      .row
+        .col-md-12
+          = f.hidden_field :page_network_id,
+            class: 'network-id'
+          = f.hidden_field :deleted,
+            class: 'network-deleted', value: false
+          = f.hidden_field :position,
+            class: 'network-position'
+
+          .form-group
+            label Network
+            = f.select :network, options_for_select(@network_options, nil), {include_blank: 'Choose network'},
+              class: 'form-control network-option select2',
+              id: "network-option-0",
+              required: true

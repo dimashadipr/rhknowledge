@@ -1,0 +1,57 @@
+= form_with url: final_review_admin_participant_path(participant), method: 'post', local: true, id: 'form-final-review' do |f|
+  .form-group
+    label Participant
+    = f.text_field :participant_name, value: participant.full_name, class: 'form-control', readonly: true
+
+  label Abstract File
+  .input-group
+    = f.text_field :abstract_file, value: participant.abstract_file.file.filename, class: 'form-control', readonly: true
+    .input-group-append
+      span.input-group-text
+        = link_to participant.abstract_file.url, download: "Abstrak #{participant.full_name}.#{participant.abstract_extenstion}", target: '_blank'
+          i.fas.fa-file-download
+
+  - latest_abstract_file = participant.latest_abstract_file
+  - reviews = latest_abstract_file.participant_file_reviews
+  table.table.table-striped.mt-2
+    thead
+      tr
+        th Reviewer
+        th Status
+        th Score
+        th Notes
+        th
+    tbody
+      - reviews.each do |file_review|
+        tr
+          td = file_review.user.name
+          td
+            span.badge class="#{abstract_status(file_review.status)}" = file_review.status.humanize
+          td
+            -if file_review.score.present?
+              = file_review.score
+            - else
+              | -
+          td
+            - if file_review.note.present?
+              = file_review.note
+            - else
+              | -
+          td = date_format(file_review.updated_at, 'long')
+
+  .row
+    .col-md-3
+      | Status
+      p.status
+        | -
+    .col-md-9
+      .btn-group.btn-group-toggle data-toggle='buttons'
+        label.btn.bg-teal
+          = f.radio_button :status, 'oral_accepted', class: 'final-review-status', required: true
+          | Oral Accepted
+        label.btn.bg-blue
+          = f.radio_button :status, 'poster_accepted', class: 'final-review-status', required: true
+          | Poster Accepted
+        label.btn.bg-pink
+          = f.radio_button :status, 'rejected', class: 'final-review-status', required: true
+          | Rejected

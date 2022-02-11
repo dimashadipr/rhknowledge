@@ -1,0 +1,15 @@
+tr
+  td
+    - if source.image_header.present?
+      = image_tag(source.image_header.preview&.url,  class: 'img-fluid')
+
+  td = source.code
+  td = source.name
+  td
+    .btn-group
+      = link_to edit_admin_source_path(source.id)
+        button.btn.btn-info type="button"
+          i.fas.fa-edit
+      = link_to admin_source_path(source),title:"Delete", method: :delete, data: { tooltip: 'tooltip', confirm: 'Are you sure?' }
+        button.btn.btn-danger type="button"
+          i.fas.fa-trash

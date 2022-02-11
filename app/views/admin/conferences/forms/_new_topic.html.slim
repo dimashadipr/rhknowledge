@@ -1,0 +1,19 @@
+.col-md-4.new-topic
+  .card.card-success.card-outline
+    .card-header
+      .card-title
+        span.topic-index Topic 0
+
+      .card-tools
+        a.btn-btn-tool.btn-sm.text-danger.remove-topic href="javascript:void(0)"
+          i.fa.fa-trash
+          
+    .card-body
+      = f.hidden_field :conference_topic, name: "",
+        class: 'topic-id', value: nil
+      = f.hidden_field :conference_topic_deleted, name: "",
+        class: 'topic-deleted', value: false
+
+      .form-group
+        label Name *
+        = f.text_field :conference_topic_name, name: "", class: 'topic-name form-control', value: nil

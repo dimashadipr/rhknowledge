@@ -1,0 +1,25 @@
+.card
+  .card-header.border-0
+    h3.card-title Past 7 Days Visitors
+  .card-body.p-0
+    .table-responsive
+      table.table.m-0
+        thead
+          tr
+            th Origin
+            th
+        tbody
+          - @visitors.take(5).each do |visitor_token, groups|
+            - visitor = groups.last
+            tr
+              td
+                = link_to detail_visitor_admin_visitors_path(visitor_token: visitor_token)
+                  = visitor.origin
+              td
+                - if groups.size > 1
+                  span.badge.badge-info Recurring
+                - else
+                  span.badge.badge-success New Visitor
+
+  .card-footer.clearfix
+    a.btn.btn-sm.btn-secondary.float-right href="#{admin_visitors_path}" View All Visitors

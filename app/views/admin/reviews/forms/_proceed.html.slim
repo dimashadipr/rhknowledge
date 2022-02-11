@@ -1,0 +1,20 @@
+= form_with url: admin_review_path(review.id), method: 'put', local: true, id: 'form-proceed-review' do |f|
+  .form-group
+    label Participant
+    = f.text_field :participant_name, value: review.participant.full_name, class: 'form-control', readonly: true
+
+  .form-group
+    label = review.participant_file.type
+    = f.text_field :participant_name, value: review.participant_file.file.file.filename, class: 'form-control', readonly: true
+
+  hr
+  h3 Scoring
+  - if review.participant_file.type == 'PaperFile'
+    = render 'admin/reviews/forms/paper', f: f
+  - else
+    = render 'admin/reviews/forms/abstract', f: f
+
+  hr
+  .form-group
+    label Notes
+    = f.text_area :note, class: 'form-control'

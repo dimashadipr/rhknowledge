@@ -1,0 +1,82 @@
+.card.card-success.card-outline
+  .card-header
+    .card-title
+      span.asset-index Assets
+
+  .card-body
+    - conference_banner = @conference.conference_banner
+    - conference_banner = ConferenceBanner.new if conference_banner.blank?
+    .col-md-4.card
+      .card-header
+        .card-title
+          span Banner
+
+      .card-body
+        .form-group
+          - required = conference_banner.new_record?
+          label Image #{'*' if required}
+          .input-group
+            .custom-file
+              = f.file_field :image, name: "conference[conference_banner][image]",
+              class: 'custom-file-input banner-image', id:'conference-banner-image', required: required, accept: 'image/*'
+              label.custom-file-label for="conference-banner-image" Image
+        - if conference_banner.file.present?
+          = image_tag(conference_banner.file.preview&.url, class: 'img-fluid')
+
+  .card-body
+    .card-title
+      span.asset-index Quick Links
+
+    button.btn.btn-sm.btn-flat.btn-success.add-asset.mb-2 type="button"
+      i.fa.fa-plus-square.mr-2
+      | Add Quick Link
+
+    #list-asset.row
+      - conference_quick_links = @conference.conference_quick_links&.order(:position)
+      - conference_quick_links = [ConferenceQuickLink.new] if conference_quick_links.blank?
+      - conference_quick_links.each_with_index do |conference_quick_link, index|
+        - required = conference_quick_link.new_record?
+        .col-md-4.card-asset
+          .card.card-success.card-outline
+            .card-header
+              .card-title
+                span.asset-index Quick Link #{index+1}
+
+              .card-tools
+                - hide = conference_quick_links.size > 1 ? '' : 'd-none'
+                a.btn-btn-tool.btn-sm.text-danger.remove-asset class="#{hide}" href="javascript:void(0)"
+                  i.fa.fa-trash
+
+            .card-body
+              = f.hidden_field :conference_quick_link_id, name: "conference[conference_quick_links][#{index}][id]",
+                class: 'asset-id', value: conference_quick_link.id
+              = f.hidden_field :conference_quick_link_deleted, name: "conference[conference_quick_links][#{index}][deleted]",
+                class: 'asset-deleted', value: false
+
+              .form-group
+                label Label #{'*' if required}
+                = f.text_field :conference_quick_link_label, name: "conference[conference_quick_links][#{index}][label]]", class: 'asset-name form-control', required: required, value: conference_quick_link.label
+
+              .form-group
+                label Position #{'*' if required}
+                = f.number_field :conference_quick_link_position, name: "conference[conference_quick_links][#{index}][position]", class: 'asset-position form-control', required: required, value: conference_quick_link.position
+
+              /.form-group
+                label Image #{'*' if required}
+                .input-group
+                  .custom-file
+                    = f.file_field :image, name: "conference[conference_quick_links][#{index}][image]",
+                    class: 'custom-file-input banner-image', id:'conference-image', required: required, accept: 'image/*'
+                    label.custom-file-label for="conference-image" Image
+
+              .form-group
+                label File #{'*' if required}
+                .input-group
+                  .custom-file
+                    = f.file_field :file, name: "conference[conference_quick_links][#{index}][file]",
+                    class: 'custom-file-input banner-file', id:'conference-file', required: required
+                    label.custom-file-label File
+              - if conference_quick_link.file.present?
+                = link_to conference_quick_link.file.url
+                  span.fas.fa-download.mr-1
+                  = conference_quick_link.label
